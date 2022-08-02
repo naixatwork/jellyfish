@@ -1,7 +1,16 @@
-import letGo from "./foo";
+// @ts-ignore
+// import {mergeInto, LibraryManager} from 'myGameInstance';
 
-const program = () => {
-    letGo();
+export function letGo () {
+    console.log('dastan')
 }
 
-program();
+export function showAd() {
+    console.log('showing ads')
+}
+
+// @ts-ignore
+mergeInto(LibraryManager.library, {
+    Hello: showAd,
+    letGo: letGo,
+});

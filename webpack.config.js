@@ -1,7 +1,11 @@
 const path = require('path');
+const packageName = require('./package.json').name
 
-module.exports = {
-    entry: './src/index.ts',
+const baseConfig = {
+    name: packageName,
+    entry: {
+        [packageName]: './src/index.ts'
+    },
     module: {
         rules: [
             {
@@ -13,10 +17,29 @@ module.exports = {
     resolve: {
         extensions: ['.ts', '.js'],
     },
-    output: {
-        filename: 'bundle.js',
-        library: 'bundle',
-        path: path.resolve(__dirname, 'dist'),
-        clean: true,
+    externals: {
     },
-};
+}
+
+const mainConfig = Object.assign({}, baseConfig, {
+    output: {
+        path: path.resolve(__dirname, 'build'),
+        filename: '[name].js',
+        library: '[name]'
+    }
+})
+
+const libraryConfig = Object.assign({}, baseConfig, {
+    output: {
+        path: path.resolve(__dirname, 'build'),
+        filename: '[name].jslib',
+        library: '[name]',
+        clean: true
+    }
+})
+
+
+
+module.exports = [
+    mainConfig, libraryConfig
+];
