@@ -22,6 +22,11 @@ const config = {
     module: {
         rules: [
             {
+                test: /\.ts/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
+            {
                 test: /fbapp-config.json/,
                 type: 'asset/resource',
                 generator: {
