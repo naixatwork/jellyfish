@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "bulid": "webpack build --mode development"
+    "library-build": "webpack build --config ./applications/library/webpack.library.config.js",
+    "library-production": "webpack build --mode=production --config ./applications/library/webpack.library.config.js"
   },
   "author": "",
   "license": "ISC",

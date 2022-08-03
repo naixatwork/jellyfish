@@ -5,6 +5,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | {{{ PRODUCT_NAME }}}</title>
 </head>
+<!-- custom codes -->
+<script fetchpriority="high" src="https://connect.facebook.net/en_US/fbinstant.latest.js"></script>
+<!-- end of custom codes -->
+
 <body style="text-align: center">
 <canvas id="unity-canvas" width={{{ WIDTH }}} height={{{ HEIGHT }}} style="width: {{{ WIDTH }}}px; height: {{{ HEIGHT }}}px; background: {{{ BACKGROUND_FILENAME ? 'url(\'Build/' + BACKGROUND_FILENAME.replace(/'/g, '%27') + '\') center / cover' : BACKGROUND_COLOR }}}"></canvas>
 <script src="Build/{{{ LOADER_FILENAME }}}"></script>
@@ -37,14 +41,8 @@
     // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
     });
 </script>
-
-<!-- custom codes -->
-<script
-        src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-        crossorigin="anonymous"></script>
-<script src="https://connect.facebook.net/en_US/fbinstant.latest.js"></script>
-<!-- end of custom codes -->
-
+<script>
+    console.log('entryyyyy')
+</script>
 </body>
 </html>
