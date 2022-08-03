@@ -1,16 +1,13 @@
-// @ts-ignore
-// import {mergeInto, LibraryManager} from 'myGameInstance';
+declare const $: object;
+declare const FBInstant: object;
 
-export function letGo () {
-    console.log('dastan')
+const Hello = () => {
+  console.log($);
+  console.log(FBInstant);
 }
 
-export function showAd() {
-    console.log('showing ads')
-}
 
 // @ts-ignore
 mergeInto(LibraryManager.library, {
-    Hello: showAd,
-    letGo: letGo,
+    Hello
 });

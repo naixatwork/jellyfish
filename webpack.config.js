@@ -18,6 +18,7 @@ const baseConfig = {
         extensions: ['.ts', '.js'],
     },
     externals: {
+        // jquery: 'jQuery',
     },
 }
 
@@ -25,7 +26,7 @@ const mainConfig = Object.assign({}, baseConfig, {
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: '[name].js',
-        library: '[name]'
+        library: '[name]',
     }
 })
 
@@ -34,7 +35,6 @@ const libraryConfig = Object.assign({}, baseConfig, {
         path: path.resolve(__dirname, 'build'),
         filename: '[name].jslib',
         library: '[name]',
-        clean: true
     }
 })
 

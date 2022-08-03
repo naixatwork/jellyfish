@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "bulid": "webpack build"
+    "bulid": "webpack build --mode development"
   },
   "author": "",
   "license": "ISC",
