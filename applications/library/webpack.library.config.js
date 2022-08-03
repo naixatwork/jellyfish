@@ -10,6 +10,7 @@ const config = {
         path: path.resolve('./build/library'),
         filename: '[name].jslib',
         library: '[name]',
+        clean: true,
     },
     module: {
         rules: [
