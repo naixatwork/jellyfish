@@ -17,6 +17,7 @@ const config = {
     output: {
         path: path.resolve('./build/template'),
         filename: '[name].js',
+        library: '[name]',
         clean: true,
     },
     module: {
