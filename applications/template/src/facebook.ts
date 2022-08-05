@@ -7,6 +7,7 @@ export default class Facebook {
         const afterInitialization = () => {
             this.setLoadingProgressTo100();
             this.startGame();
+            this.preloadInterstitial();
         }
 
         fbInstant.initializeAsync().then(afterInitialization);
@@ -28,5 +29,33 @@ export default class Facebook {
         this.fbInstant.startGameAsync();
     }
 
+    public logSupportedAPIs(): void {
+        console.log(this.fbInstant.getSupportedAPIs());
+    }
 
+    private interstitialAd: any;
+
+    private preloadInterstitial(): void {
+        const setInterstitialAd = (interstitial: any) => {
+            this.interstitialAd = interstitial;
+        }
+
+        this.fbInstant.getInterstitialAdAsync('3226407067686742_3226470167680432')
+            .then(setInterstitialAd)
+            .catch(function (error: any) {
+                console.error(error.message)
+            })
+
+    }
+
+    public showInterstitial(): void {
+        if (!this.interstitialAd) {
+            return;
+        }
+        this.interstitialAd.showAsync()
+            .then()
+            .catch(function (error: any) {
+                console.error(error)
+            })
+    }
 }

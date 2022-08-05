@@ -1,10 +1,16 @@
 declare const jellyfish: any; // a global variable that should come from jellyfish template
 
-function Hello() {
-    console.log(jellyfish.facebook);
+function showSupportedAPIs(): void {
+    jellyfish.facebook.logSupportedAPIs();
 }
+
+function showAd(): void {
+    jellyfish.facebook.showInterstitial();
+}
+
 
 // @ts-ignore
 mergeInto(LibraryManager.library, {
-    Hello
+    showSupportedAPIs,
+    showAd
 });
