@@ -5,7 +5,7 @@ function showSupportedAPIs(): void {
 }
 
 function showAd(): void {
-    jellyfish.facebook.showInterstitial();
+    jellyfish.facebook.showAd();
 }
 
 

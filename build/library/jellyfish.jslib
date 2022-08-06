@@ -5,7 +5,7 @@ function showSupportedAPIs() {
     jellyfish.facebook.logSupportedAPIs();
 }
 function showAd() {
-    jellyfish.facebook.showInterstitial();
+    jellyfish.facebook.showAd();
 }
 // @ts-ignore
 mergeInto(LibraryManager.library, {
