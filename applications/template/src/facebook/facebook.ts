@@ -8,7 +8,7 @@ export default class Facebook {
     private adStrategy: AdStrategy = new InterstitialAdStrategy(this.fbInstant, '3226407067686742_3226470167680432');
 
     private constructor(
-        private readonly fbInstant: any,
+        public readonly fbInstant: any,
     ) {
         const afterInitialization = () => {
             this.setLoadingProgressTo100();

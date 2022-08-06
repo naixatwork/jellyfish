@@ -16,6 +16,7 @@ export class InterstitialAdStrategy extends AdStrategy {
     }
 
     override preloadAd(adId: string) {
+        console.log(adId);
         const setAd = (ad: any) => {
             this.ad = ad;
         }

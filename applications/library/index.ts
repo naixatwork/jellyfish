@@ -8,9 +8,16 @@ function showAd(): void {
     jellyfish.facebook.showAd();
 }
 
+function changeAd(adId: string): void {
+    const newAdStrategy = jellyfish.interstitialAd(adId);
+    jellyfish.facebook.setAdStrategy(newAdStrategy);
+    jellyfish.facebook.showAd();
+}
+
 
 // @ts-ignore
 mergeInto(LibraryManager.library, {
     showSupportedAPIs,
-    showAd
+    showAd,
+    changeAd
 });

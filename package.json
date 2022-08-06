@@ -8,6 +8,7 @@
     "library-build-production": "webpack build --mode=production --config ./applications/library/webpack.library.config.js",
     "template-build-development": "webpack build --mode=development --config ./applications/template/webpack.template.config.js",
     "template-build-production": "webpack build --mode=production --config ./applications/template/webpack.template.config.js",
+    "template-serve-production": "webpack watch --config ./applications/template/webpack.template.config.js",
     "applications-build-production": "concurrently \"npm run template-build-production\" \"npm run library-build-production\" "
   },
   "author": "",
