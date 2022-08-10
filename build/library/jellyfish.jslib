@@ -4,7 +4,7 @@ var __webpack_exports__ = {};
 function showSupportedAPIs() {
     jellyfish.facebook.logSupportedAPIs();
 }
-function showAd() {
+function ShowAd() {
     jellyfish.facebook.showAd();
 }
 function changeAd(adId) {
@@ -15,7 +15,7 @@ function changeAd(adId) {
 // @ts-ignore
 mergeInto(LibraryManager.library, {
     showSupportedAPIs: showSupportedAPIs,
-    showAd: showAd,
+    ShowAd: ShowAd,
     changeAd: changeAd
 });
 

@@ -4,7 +4,7 @@ function showSupportedAPIs(): void {
     jellyfish.facebook.logSupportedAPIs();
 }
 
-function showAd(): void {
+function ShowAd(): void {
     jellyfish.facebook.showAd();
 }
 
@@ -18,6 +18,6 @@ function changeAd(adId: string): void {
 // @ts-ignore
 mergeInto(LibraryManager.library, {
     showSupportedAPIs,
-    showAd,
+    ShowAd,
     changeAd
 });
