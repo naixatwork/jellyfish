@@ -1,11 +1,10 @@
-import {AdStrategy} from "./ads/ad.type";
-import {InterstitialAdStrategy} from "./ads/ad.Interstitial";
+import {AdContainer, adTypes} from "./ads/ad.container";
 
 declare var FBInstant: unknown; // a global variable that should come from Facebook SDK
 
 export default class Facebook {
     private static instance: Facebook;
-    private adStrategy = new InterstitialAdStrategy('3226407067686742_3226470167680432', this);
+    private adContainer = new AdContainer(this);
 
     private constructor(
         public readonly fbInstant: any,
@@ -38,11 +37,11 @@ export default class Facebook {
         console.log(this.fbInstant.getSupportedAPIs());
     }
 
-    public setAdStrategy(adStrategy: AdStrategy): void {
-        this.adStrategy = adStrategy;
+    public preloadAd(adType: adTypes, adId: string): void {
+        this.adContainer.preloadAd(adType, adId);
     }
 
-    public showAd(): void {
-        this.adStrategy.showAd();
+    public showAd(adType: adTypes): void {
+        this.adContainer.showAd(adType);
     }
 }
