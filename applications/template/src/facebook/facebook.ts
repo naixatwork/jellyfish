@@ -5,7 +5,7 @@ declare var FBInstant: unknown; // a global variable that should come from Faceb
 
 export default class Facebook {
     private static instance: Facebook;
-    private adStrategy: AdStrategy = new InterstitialAdStrategy(this.fbInstant, '3226407067686742_3226470167680432');
+    private adStrategy = new InterstitialAdStrategy('3226407067686742_3226470167680432', this);
 
     private constructor(
         public readonly fbInstant: any,

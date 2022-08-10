@@ -1,11 +1,12 @@
 import {AdStrategy} from './ad.type'
+import Facebook from "../facebook";
 
 export class InterstitialAdStrategy extends AdStrategy {
-    constructor(fbInstant: any, adId: string) {
-        super(fbInstant, adId);
+    constructor(adId: string, facebook: Facebook) {
+        super(adId, facebook);
     }
 
-    override showAd() {
+    public showAd() {
         if (!this.ad) return;
 
         this.ad.showAsync()
@@ -15,13 +16,13 @@ export class InterstitialAdStrategy extends AdStrategy {
             })
     }
 
-    override preloadAd(adId: string) {
-        console.log(adId);
+    public preloadAd(adId: string) {
+        console.log(adId, this.facebook);
         const setAd = (ad: any) => {
             this.ad = ad;
         }
 
-        this.fbInstant.getInterstitialAdAsync(adId)
+        this.facebook.fbInstant.getInterstitialAdAsync(adId)
             .then(setAd)
             .catch(function (error: any) {
                 console.error(error)

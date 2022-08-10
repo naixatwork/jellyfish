@@ -4,5 +4,5 @@ import {InterstitialAdStrategy} from "./src/facebook/ads/ad.Interstitial";
 
 export const facebook = Facebook.getSingletonInstance();
 export const interstitialAd = (adId: string): InterstitialAdStrategy => {
-    return new InterstitialAdStrategy(facebook.fbInstant, adId);
+    return new InterstitialAdStrategy(adId, facebook);
 }

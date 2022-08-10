@@ -1,11 +1,13 @@
+import Facebook from "../facebook";
+
 export abstract class AdStrategy {
     protected ad: any;
 
-    public abstract showAd(): void;
-
-    protected abstract preloadAd(adId: string): void;
-
-    protected constructor(protected readonly fbInstant: any, adId: string) {
+    protected constructor(adId: string, protected readonly facebook: Facebook) {
         this.preloadAd(adId);
     }
+
+    public abstract showAd(): void;
+
+    public abstract preloadAd(adId: string): void;
 }
