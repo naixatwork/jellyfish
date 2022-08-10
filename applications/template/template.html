@@ -13,6 +13,7 @@
 <canvas id="unity-canvas" width={{{ WIDTH }}} height={{{ HEIGHT }}} style="width: {{{ WIDTH }}}px; height: {{{ HEIGHT }}}px; background: {{{ BACKGROUND_FILENAME ? 'url(\'Build/' + BACKGROUND_FILENAME.replace(/'/g, '%27') + '\') center / cover' : BACKGROUND_COLOR }}}"></canvas>
 <script src="Build/{{{ LOADER_FILENAME }}}"></script>
 <script>
+    var unity;
     if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:
         var meta = document.createElement('meta');
@@ -39,6 +40,10 @@
     productVersion: {{{ JSON.stringify(PRODUCT_VERSION) }}},
     // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
     // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+    }).then((unityInstance) => {
+        unity = unityInstance;
+        jellyfish.onUnityInitiated();
+        console.log(unity)
     });
 </script>
 </body>
