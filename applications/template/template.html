@@ -5,6 +5,17 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | {{{ PRODUCT_NAME }}}</title>
+    <style>
+        html, body {
+            height: 100% !important;
+            margin: 0;
+        }
+
+        canvas#unity-canvas {
+            height: 100% !important;
+            width: 100% !important;
+        }
+    </style>
 </head>
 <!-- custom codes -->
 <!-- end of custom codes -->
@@ -43,7 +54,6 @@
     }).then((unityInstance) => {
         unity = unityInstance;
         jellyfish.onUnityInitiated();
-        console.log(unity)
     });
 </script>
 </body>

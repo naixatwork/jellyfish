@@ -1,5 +1,3 @@
-import {adTypes} from "../template/src/facebook/ads/ad.container";
-
 declare const jellyfish: any; // a global variable that should come from jellyfish template
 
 
@@ -9,14 +7,11 @@ mergeInto(LibraryManager.library, {
         jellyfish.facebook.logSupportedAPIs();
     },
     showAd: (adType: BufferSource): void => {
-        const textDecoder = new TextDecoder("utf8");
-        jellyfish.facebook.showAd(textDecoder.decode(adType));
+        // @ts-ignore
+        jellyfish.facebook.showAd(UTF8ToString(adType));
     },
     preloadAd: (adType: BufferSource, adId: BufferSource): void => {
         // @ts-ignore
         jellyfish.facebook.preloadAd(UTF8ToString(adType), UTF8ToString(adId));
-
-        // @ts-ignore
-        console.log(UTF8ToString(adType));
     }
 });

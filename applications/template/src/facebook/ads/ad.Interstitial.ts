@@ -1,5 +1,6 @@
 import {AdStrategy} from './ad.type'
 import Facebook from "../facebook";
+import {PLANKTON_GAME_OBJECT_NAME, unityEngine} from "../../../index";
 
 export class InterstitialAdStrategy extends AdStrategy {
     constructor(adId: string, facebook: Facebook) {
@@ -7,11 +8,33 @@ export class InterstitialAdStrategy extends AdStrategy {
     }
 
     public showAd() {
-        if (!this.ad) return;
+        const callUnityOnAdShowed = () => {
+            unityEngine.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdShowed", JSON.stringify({
+                format: "interstitial",
+                network: "facebook",
+                response_id: "0"
+            }))
+        }
+
+        const callUnityOnAdFailedToShow = () => {
+            unityEngine.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdFailedToShow", JSON.stringify({
+                format: "interstitial",
+                network: "facebook",
+                response_id: "0"
+            }))
+        }
+
+        if (!this.ad) {
+            callUnityOnAdFailedToShow();
+            return;
+        }
 
         this.ad.showAsync()
-            .then()
+            .then(() => {
+                callUnityOnAdShowed();
+            })
             .catch(function (error: any) {
+                callUnityOnAdFailedToShow();
                 console.error(error)
             })
     }
@@ -22,9 +45,23 @@ export class InterstitialAdStrategy extends AdStrategy {
             this.ad = ad;
         }
 
+        const callUnityOnAdLoaded = () => {
+            console.log('callUnityOnAdLoaded')
+            unityEngine.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdLoaded", "interstitial");
+        }
+
+        const callUnityOnAdFailedToLoad = () => {
+            console.log('callUnityOnAdFailedToLoad')
+            unityEngine.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdFailedToLoad", "interstitial");
+        }
+
         this.facebook.fbInstant.getInterstitialAdAsync(adId)
-            .then(setAd)
+            .then((ad: InterstitialAdStrategy['ad']) => {
+                setAd(ad);
+                callUnityOnAdLoaded();
+            })
             .catch(function (error: any) {
+                callUnityOnAdFailedToLoad();
                 console.error(error)
             });
     }
