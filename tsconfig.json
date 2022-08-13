@@ -1,14 +1,18 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
+    "outDir": "./dist",
     "noImplicitAny": true,
+    "strict": true,
     "target": "es6",
     "lib": ["es6", "dom"],
     "module": "commonjs",
-    "types": ["reflect-metadata", "node"],
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strictPropertyInitialization": false,
   }
   //  "include": ["applications/**/*"],
 }

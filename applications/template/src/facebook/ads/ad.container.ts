@@ -28,6 +28,7 @@ export class AdContainer {
     }
 
     public showAd(adType: adTypes): void {
+        // @ts-ignore
         this.ads[adType].showAd();
     }
 }
