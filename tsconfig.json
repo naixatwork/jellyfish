@@ -7,6 +7,9 @@
     "jsx": "react",
     "allowJs": true,
     "moduleResolution": "node",
+    "types": ["reflect-metadata"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["applications/**/*"],
 }
