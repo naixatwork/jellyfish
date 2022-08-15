@@ -9,6 +9,6 @@ export class UnityService {
     }
 
     public sendMessage(gameObject: string, method: string, value?: any): void {
-        this.unityInstance.SendMessage(gameObject, method, value);
+        this.unityInstance.sendMessage(gameObject, method, value);
     }
 }
