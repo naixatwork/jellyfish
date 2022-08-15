@@ -10,11 +10,14 @@ declare var FBInstant: unknown; // comes from Facebook SDK
 declare var unity: IUnityInstance; // instantiates after unity engine has loaded
 
 export const PLANKTON_GAME_OBJECT_NAME = "Plankton";
+
+// todo: create app.module.ts and move the container making logic there
 export let container = new Container();
 export let facebook: FacebookService;
 
 container.load(new UnityModule());
 container.load(new FacebookModule());
+
 
 export function onUnityInitiated(): void {
     container.rebind<IUnityInstance>(UNITY_SERVICE_IDENTIFIERS.unityInstance).toConstantValue(unity);

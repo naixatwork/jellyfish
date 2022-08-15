@@ -2,14 +2,15 @@ import {inject, injectable} from "inversify";
 import {AdStrategy} from "./ad.strategy";
 import {PLANKTON_GAME_OBJECT_NAME} from "../../../index";
 import {UnityService} from "../../unity/unity.service";
+import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "../facebook.type";
 
 @injectable()
 export class AdInterstitialService extends AdStrategy {
     constructor(
-        @inject("fbInstant") protected readonly fbInstant: any,
+        @inject(FACEBOOK_SERVICE_IDENTIFIERS.fbInstantSDK) protected readonly fbInstant: IFBInstantSDK,
         private readonly unityService: UnityService
     ) {
-        super(fbInstant);
+        super();
     }
 
     public showAd() {
@@ -50,12 +51,10 @@ export class AdInterstitialService extends AdStrategy {
         }
 
         const callUnityOnAdLoaded = () => {
-            console.log('callUnityOnAdLoaded')
             this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdLoaded", "interstitial");
         }
 
         const callUnityOnAdFailedToLoad = () => {
-            console.log('callUnityOnAdFailedToLoad')
             this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdFailedToLoad", "interstitial");
         }
 

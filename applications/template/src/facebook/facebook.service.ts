@@ -1,10 +1,11 @@
 import {inject, injectable} from "inversify";
 import {AdContainerService, adTypes} from "./ad/ad.container.service";
+import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "./facebook.type";
 
 @injectable()
 export class FacebookService {
     constructor(
-        @inject("fbInstant") private readonly fbInstant: any,
+        @inject(FACEBOOK_SERVICE_IDENTIFIERS.fbInstantSDK) private readonly fbInstant: IFBInstantSDK,
         private readonly adContainerService: AdContainerService
     ) {
         const afterInitialization = () => {
