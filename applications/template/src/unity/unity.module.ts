@@ -1,6 +1,5 @@
 import {ContainerModule} from "inversify";
 import {UnityService} from "./unity.service";
-import {unityEngine} from "../../index";
 import {IUnityInstance} from "./unity.types";
 
 class UnityInstanceMock implements IUnityInstance {

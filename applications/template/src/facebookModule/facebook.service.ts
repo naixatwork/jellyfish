@@ -1,6 +1,5 @@
 import {inject, injectable} from "inversify";
-import {AdContainerService} from "./ad/ad.container.service";
-import {adTypes} from "../facebook/ads/ad.container";
+import {AdContainerService, adTypes} from "./ad/ad.container.service";
 
 @injectable()
 export class FacebookService {
