@@ -1,6 +1,6 @@
 import {ContainerModule} from "inversify";
 import {UnityService} from "./unity.service";
-import {IUnityInstance} from "./unity.types";
+import {IUnityInstance, UNITY_SERVICE_IDENTIFIERS} from "./unity.types";
 
 class UnityInstanceMock implements IUnityInstance {
     SendMessage(gameObject: string, method: string, value: string): void {
@@ -13,7 +13,7 @@ export class UnityModule extends ContainerModule {
         super(bind => {
             bind(UnityService).toSelf();
             // todo: create a symbol for this serviceIdentifier
-            bind("unityInstance").toConstantValue(new UnityInstanceMock())
+            bind(UNITY_SERVICE_IDENTIFIERS.unityInstance).toConstantValue(new UnityInstanceMock())
         });
     }
 }
