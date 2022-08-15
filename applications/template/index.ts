@@ -3,8 +3,8 @@ import './fbapp-config.json';
 import {Container} from "inversify";
 import {UnityModule} from "./src/unity/unity.module";
 import {IUnityInstance} from "./src/unity/unity.types";
-import {FacebookModule} from "./src/facebookModule/facebook.module";
-import {FacebookService} from "./src/facebookModule/facebook.service";
+import {FacebookModule} from './src/facebook/facebook.module';
+import {FacebookService} from "./src/facebook/facebook.service";
 
 declare var FBInstant: unknown; // comes from Facebook SDK
 declare var unity: IUnityInstance; // instantiates after unity engine has loaded
