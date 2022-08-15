@@ -13,6 +13,7 @@ export class UnityModule extends ContainerModule {
     public constructor() {
         super(bind => {
             bind(UnityService).toSelf();
+            // todo: create a symbol for this serviceIdentifier
             bind("unityInstance").toConstantValue(new UnityInstanceMock())
         });
     }
