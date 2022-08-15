@@ -1,10 +1,12 @@
-import Facebook from "../facebook";
+import {injectable} from "inversify";
 
+@injectable()
 export abstract class AdStrategy {
     protected ad: any;
 
-    protected constructor(adId: string, protected readonly facebook: Facebook) {
-        this.preloadAd(adId);
+    public constructor(
+        protected readonly fbInstant: any
+    ) {
     }
 
     public abstract showAd(): void;

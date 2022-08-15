@@ -1,15 +1,20 @@
-import {AdStrategy} from './ad.type'
-import Facebook from "../facebook";
-import {PLANKTON_GAME_OBJECT_NAME, unityEngine} from "../../../index";
+import {inject, injectable} from "inversify";
+import {AdStrategy} from "./ad.strategy";
+import {PLANKTON_GAME_OBJECT_NAME} from "../../../index";
+import {UnityService} from "../../unity/unity.service";
 
-export class InterstitialAdStrategy extends AdStrategy {
-    constructor(adId: string, facebook: Facebook) {
-        super(adId, facebook);
+@injectable()
+export class AdInterstitialService extends AdStrategy {
+    constructor(
+        @inject("fbInstant") protected readonly fbInstant: any,
+        private readonly unityService: UnityService
+    ) {
+        super(fbInstant);
     }
 
     public showAd() {
         const callUnityOnAdShowed = () => {
-            unityEngine.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdShowed", JSON.stringify({
+            this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdShowed", JSON.stringify({
                 format: "interstitial",
                 network: "facebook",
                 response_id: "0"
@@ -17,7 +22,7 @@ export class InterstitialAdStrategy extends AdStrategy {
         }
 
         const callUnityOnAdFailedToShow = () => {
-            unityEngine.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdFailedToShow", JSON.stringify({
+            this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdFailedToShow", JSON.stringify({
                 format: "interstitial",
                 network: "facebook",
                 response_id: "0"
@@ -40,23 +45,23 @@ export class InterstitialAdStrategy extends AdStrategy {
     }
 
     public preloadAd(adId: string) {
-        console.log(adId, this.facebook);
+        console.log(adId, this.fbInstant);
         const setAd = (ad: any) => {
             this.ad = ad;
         }
 
         const callUnityOnAdLoaded = () => {
             console.log('callUnityOnAdLoaded')
-            unityEngine.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdLoaded", "interstitial");
+            this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdLoaded", "interstitial");
         }
 
         const callUnityOnAdFailedToLoad = () => {
             console.log('callUnityOnAdFailedToLoad')
-            unityEngine.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdFailedToLoad", "interstitial");
+            this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdFailedToLoad", "interstitial");
         }
 
-        this.facebook.fbInstant.getInterstitialAdAsync(adId)
-            .then((ad: InterstitialAdStrategy['ad']) => {
+        this.fbInstant.getInterstitialAdAsync(adId)
+            .then((ad: AdStrategy['ad']) => {
                 setAd(ad);
                 callUnityOnAdLoaded();
             })

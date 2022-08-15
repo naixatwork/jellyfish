@@ -1,12 +1,18 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
+    "outDir": "./dist",
     "noImplicitAny": true,
-    "module": "es6",
+    "strict": true,
     "target": "es5",
-    "jsx": "react",
-    "allowJs": true,
+    "lib": ["es6", "dom"],
     "moduleResolution": "node",
-  },
-  "include": ["applications/**/*"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strictPropertyInitialization": false,
+    "baseUrl": "."
+  }
+  //  "include": ["applications/**/*"],
 }

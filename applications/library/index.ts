@@ -1,3 +1,5 @@
+import { BufferSource } from "stream/web";
+
 declare const jellyfish: any; // a global variable that should come from jellyfish template
 
 

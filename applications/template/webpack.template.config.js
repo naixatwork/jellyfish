@@ -28,6 +28,15 @@ const config = {
                 exclude: /node_modules/,
             },
             {
+                enforce: 'pre',
+                test: /\.js$/,
+                loader: 'source-map-loader',
+                exclude: [
+                    // instead of /\/node_modules\//
+                    path.join(process.cwd(), 'node_modules')
+                ]
+            },
+            {
                 test: /fbapp-config.json/,
                 type: 'asset/resource',
                 generator: {
@@ -41,7 +50,8 @@ const config = {
         ]
     },
     resolve: {
-        extensions: ['.ts'],
+        extensions: ['.ts', '.js'],
+        modules: ['node_modules', path.resolve(__dirname, 'node_modules')]
     },
 }
 

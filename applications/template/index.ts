@@ -1,16 +1,23 @@
+import "reflect-metadata";
 import './fbapp-config.json';
-import Facebook from "./src/facebook/facebook";
-import {Unity} from "./src/unity/unity.class";
+import {Container} from "inversify";
+import {UnityModule} from "./src/unity/unity.module";
+import {IUnityInstance} from "./src/unity/unity.types";
+import {FacebookModule} from './src/facebook/facebook.module';
+import {FacebookService} from "./src/facebook/facebook.service";
+
+declare var FBInstant: unknown; // comes from Facebook SDK
+declare var unity: IUnityInstance; // instantiates after unity engine has loaded
 
 export const PLANKTON_GAME_OBJECT_NAME = "Plankton";
+export let container = new Container();
+export let facebook: FacebookService;
 
-export const facebook = Facebook.getSingletonInstance();
-export let unityEngine: any;
-
-declare var unity: any;
+container.load(new UnityModule());
+container.load(new FacebookModule());
 
 export function onUnityInitiated(): void {
-    console.log(unity);
-    unityEngine = new Unity(unity);
-    console.log(unityEngine);
+    container.rebind<IUnityInstance>("unityInstance").toConstantValue(unity);
+    container.rebind("fbInstant").toConstantValue(FBInstant);
+    facebook = container.get(FacebookService);
 }
