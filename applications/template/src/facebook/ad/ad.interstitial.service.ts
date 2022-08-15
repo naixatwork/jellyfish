@@ -45,7 +45,6 @@ export class AdInterstitialService extends AdStrategy {
     }
 
     public preloadAd(adId: string) {
-        console.log(adId, this.fbInstant);
         const setAd = (ad: any) => {
             this.ad = ad;
         }
