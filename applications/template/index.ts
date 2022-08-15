@@ -11,19 +11,20 @@ import {Unity} from "./src/unity/unity.class";
 
 export const PLANKTON_GAME_OBJECT_NAME = "Plankton";
 
-export const container = new Container();
-container.load(new TestModule());
-container.load(new UnityModule());
-const ninja = container.get(Ninja);
-
-
 export const facebook = Facebook.getSingletonInstance();
 declare var unity: IUnityInstance;
 export let unityEngine: any;
 
+export let container = new Container();
+
+container.load(new TestModule());
+container.load(new UnityModule());
+
 export function onUnityInitiated(): void {
     unityEngine = new Unity(unity);
     container.rebind<IUnityInstance>("unityInstance").toConstantValue(unity)
+    const ninja = container.get(Ninja);
+    console.log(ninja.sneak())
     const unity1 = container.get(UnityService);
     unity1.sendMessage("lol", "lol");
 }
