@@ -6,7 +6,7 @@ export type adTypes = "interstitial" | "banner" | "reward" | "rewardInterstitial
 
 export class AdContainer {
     private ads: Partial<Record<adTypes, AdStrategy>> = {
-        interstitial: new InterstitialAdStrategy("lol", this.facebook)
+        interstitial: new InterstitialAdStrategy("666999", this.facebook)
     };
 
     constructor(private readonly facebook: Facebook) {
