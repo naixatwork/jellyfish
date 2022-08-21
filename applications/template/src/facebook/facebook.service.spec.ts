@@ -7,8 +7,7 @@ describe("FacebookService", () => {
     let sut: FacebookService;
 
     beforeEach(() => {
-        const moduleRef = createTestingModule(FacebookModule);
-        moduleRef.load(new UnityModule());
+        const moduleRef = createTestingModule(FacebookModule, UnityModule);
         sut = moduleRef.get(FacebookService);
     });
 
