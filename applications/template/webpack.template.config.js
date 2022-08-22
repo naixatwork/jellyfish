@@ -1,6 +1,7 @@
 const path = require('path');
 const packageName = require('../../package.json').name;
 
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
@@ -10,7 +11,11 @@ const config = {
             filename: 'index.html',
             template: path.resolve(__dirname, './template.html'),
             minify: "false"
-        })],
+        }),
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'disabled'
+        })
+    ],
     entry: {
         [packageName]: path.resolve(__dirname, './index.ts')
     },
