@@ -7,12 +7,16 @@ describe("AdInterstitialService", () => {
     let sut: AdInterstitialService;
 
     beforeEach(() => {
-        const moduleRef = createTestingModule(FacebookModule);
-        moduleRef.load(new UnityModule());
+        const moduleRef = createTestingModule(FacebookModule, UnityModule);
         sut = moduleRef.get(AdInterstitialService);
     });
 
     test("it should be defined", () => {
         expect(sut).toBeDefined();
-    })
+    });
+
+    test("it should return an Ad", () => {
+       sut.preloadAd("42323");
+       expect(sut.ad).toBeDefined();
+    });
 });

@@ -12,7 +12,7 @@ declare var FBInstant: IFBInstantSDK; // comes from Facebook SDK
 declare var unity: IUnityInstance; // instantiates after unity engine has loaded
 
 
-// todo: create app.module.ts and move the container making logic there
+// todo: create app.module.ts and move the container creating logic there
 export const container = new Container({skipBaseClassChecks: true});
 export let facebook: FacebookService;
 export let unityService: UnityService;
@@ -28,3 +28,13 @@ export function onUnityInitiated(): void {
     facebook = container.get(FACEBOOK_SERVICE_IDENTIFIERS.facebookService);
     unityService = container.get(UnityService);
 }
+
+const $onUnityInitiated = new Promise((resolve, reject) => {
+    if(true) {
+        resolve('stuff worked');
+    } else {
+        reject('error, it broke');
+    }
+})
+
+$onUnityInitiated.then(result => console.log(result))
