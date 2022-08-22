@@ -13,7 +13,7 @@ declare var unity: IUnityInstance; // instantiates after unity engine has loaded
 
 
 // todo: create app.module.ts and move the container making logic there
-export let container = new Container({skipBaseClassChecks: true});
+export const container = new Container({skipBaseClassChecks: true});
 export let facebook: FacebookService;
 export let unityService: UnityService;
 
