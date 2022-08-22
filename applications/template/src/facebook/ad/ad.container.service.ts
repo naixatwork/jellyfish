@@ -1,12 +1,14 @@
 import {injectable} from "inversify";
 import {AdInterstitialService} from "./ad.interstitial.service";
+import {AdBannerService} from "./ad.banner.service";
 
 export type adTypes = "interstitial" | "banner" | "reward" | "rewardInterstitial";
 
 @injectable()
 export class AdContainerService {
     constructor(
-        private readonly adInterstitialService: AdInterstitialService
+        private readonly adInterstitialService: AdInterstitialService,
+        private readonly adBannerService: AdBannerService
     ) {
     }
 
@@ -18,9 +20,9 @@ export class AdContainerService {
         } else if (adType === "rewardInterstitial") {
             this.adInterstitialService.preloadAd(adId);
         } else if (adType === "banner") {
-            this.adInterstitialService.preloadAd(adId);
+            this.adBannerService.preloadAd(adId);
         } else {
-            console.error(`[AdContainerService]: ${adType} adType cannot be handled`);
+            console.error(`[AdContainerService]: ${adType} adType cannot be preloaded`);
         }
     }
 
@@ -32,9 +34,23 @@ export class AdContainerService {
         } else if (adType === "rewardInterstitial") {
             this.adInterstitialService.showAd();
         } else if (adType === "banner") {
-            this.adInterstitialService.showAd();
+            this.adBannerService.showAd();
         } else {
-            console.error(`[AdContainerService]: ${adType} adType cannot be handled`);
+            console.error(`[AdContainerService]: ${adType} adType cannot be shown`);
+        }
+    }
+
+    public hideAd(adType: adTypes): void {
+        if (adType === "interstitial") {
+            this.adInterstitialService.hideAd();
+        } else if (adType === "reward") {
+            this.adInterstitialService.hideAd();
+        } else if (adType === "rewardInterstitial") {
+            this.adInterstitialService.hideAd();
+        } else if (adType === "banner") {
+            this.adBannerService.hideAd();
+        } else {
+            console.error(`[AdContainerService]: ${adType} adType cannot be hidden`);
         }
     }
 }

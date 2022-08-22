@@ -1,3 +1,5 @@
+import {IAd} from "./ad/ad.class";
+
 interface IFBInstantSDK {
     initializeAsync(): Promise<any>;
 
@@ -8,18 +10,20 @@ interface IFBInstantSDK {
     getSupportedAPIs(): string[];
 
     getInterstitialAdAsync(adId: string): Promise<IAd>;
+
+    loadBannerAdAsync(adId: string): Promise<IAd>;
+
+    hideBannerAdAsync(): void;
 }
 
-interface IAd {
-    getPlacementID(): string;
-
-    showAsync(): Promise<IAd>;
-
-    loadAsync(): Promise<IAd>;
-}
 
 const FACEBOOK_SERVICE_IDENTIFIERS = {
-    fbInstantSDK: Symbol.for("fbInstantSDK"),
+    facebookService: Symbol("facebookService"),
+    preloadInterstitialBehaviour: Symbol("preloadInterstitialBehaviour"),
+    showAdInterstitialBehaviour: Symbol("showAdInterstitialBehaviour"),
+    loadBannerBehaviour: Symbol("loadBannerBehaviour"),
+    hideBannerBehaviour: Symbol("hideBannerBehaviour"),
+    fbInstantSDK: Symbol("fbInstantSDK"),
 };
 
 

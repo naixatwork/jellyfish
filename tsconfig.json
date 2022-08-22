@@ -5,6 +5,7 @@
     "strict": true,
     "target": "es5",
     "lib": ["es6", "dom"],
+    "types": ["reflect-metadata", "jest", "node"],
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
