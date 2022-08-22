@@ -5,8 +5,8 @@ import {IAdShowBehaviour, ShowNullBehaviour} from "./ad.showBehaviour";
 import {HideNullBehaviour, IAdHideBehaviour} from "./ad.hideBehaviour";
 import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "../facebook.type";
 import {UnityService} from "../../unity/unity.service";
-import {PLANKTON_GAME_OBJECT_NAME} from "../../../index";
 import {AdMock} from "../facebook.module";
+import {PLANKTON_GAME_OBJECT_NAME} from "../../unity/unity.types";
 
 @injectable()
 export class AdBannerService extends Ad {

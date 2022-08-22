@@ -5,7 +5,7 @@ import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "../facebook.type";
 import {IAdPreloadBehaviour} from "./ad.preloadBehaviour";
 import {IAdShowBehaviour} from "./ad.showBehaviour";
 import {HideNullBehaviour} from "./ad.hideBehaviour";
-import {PLANKTON_GAME_OBJECT_NAME} from "../../../index";
+import {PLANKTON_GAME_OBJECT_NAME} from "../../unity/unity.types";
 
 @injectable()
 export class AdInterstitialService extends Ad {

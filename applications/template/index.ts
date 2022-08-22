@@ -10,7 +10,6 @@ import {FacebookService} from "./src/facebook/facebook.service";
 declare var FBInstant: IFBInstantSDK; // comes from Facebook SDK
 declare var unity: IUnityInstance; // instantiates after unity engine has loaded
 
-export const PLANKTON_GAME_OBJECT_NAME = "Plankton";
 
 // todo: create app.module.ts and move the container making logic there
 export let container = new Container({skipBaseClassChecks: true});
