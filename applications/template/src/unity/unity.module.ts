@@ -3,7 +3,7 @@ import {UnityService} from "./unity.service";
 import {IUnityInstance, UNITY_SERVICE_IDENTIFIERS} from "./unity.types";
 
 class UnityInstanceMock implements IUnityInstance {
-    SendMessage(gameObject: string, method: string, value: string): void {
+    SendMessage(gameObject: string, method: string, value?: string): void {
         console.log(`[UnityInstanceMock]: ${gameObject} ${method} ${value}`);
     }
 }

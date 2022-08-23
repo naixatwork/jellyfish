@@ -15,11 +15,11 @@ class UnityInstanceMock implements IUnityInstance {
         value: string
     }[] = [];
 
-    SendMessage(gameObject: string, method: string, value: string): void {
+    SendMessage(gameObject: string, method: string, value?: string): void {
         UnityInstanceMock.logStack.push({
             gameObject,
             method,
-            value
+            value: value || ""
         });
         console.log(`[UnityInstanceMock]: ${gameObject} ${method} ${value}`);
     }
