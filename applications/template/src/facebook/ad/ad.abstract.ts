@@ -18,8 +18,8 @@ export abstract class AdService {
     protected abstract preloadBehaviour: IAdPreloadBehaviour;
     protected abstract hideAdBehaviour: IAdHideBehaviour;
 
-    public preloadAd(adId: string): void {
-        this.preloadBehaviour.preloadAd(adId)
+    public async preloadAd(adId: string): Promise<void> {
+        await this.preloadBehaviour.preloadAd(adId)
             .then((preloadedAd) => {
                 console.log({preloadedAd});
                 this.ad = preloadedAd;
