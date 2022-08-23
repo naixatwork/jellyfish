@@ -18,8 +18,11 @@ export abstract class Ad {
     protected abstract hideAdBehaviour: IAdHideBehaviour;
 
     public preloadAd(adId: string): void {
-        console.log(this.preloadBehaviour.preloadAd(adId))
-        this.ad = this.preloadBehaviour.preloadAd(adId);
+        this.preloadBehaviour.preloadAd(adId)
+            .then((preloadedAd) => {
+                console.log({preloadedAd});
+                this.ad = preloadedAd;
+            })
     }
 
     public showAd(): void {

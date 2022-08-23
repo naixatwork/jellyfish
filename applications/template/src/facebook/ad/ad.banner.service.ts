@@ -1,12 +1,13 @@
 import {inject, injectable} from "inversify";
 import {Ad, IAd} from "./ad.class";
 import {IAdPreloadBehaviour} from "./ad.preloadBehaviour";
-import {IAdShowBehaviour, ShowNullBehaviour} from "./ad.showBehaviour";
-import {HideNullBehaviour, IAdHideBehaviour} from "./ad.hideBehaviour";
+import {ShowNullBehaviour} from "./ad.showBehaviour";
+import {IAdHideBehaviour} from "./ad.hideBehaviour";
 import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "../facebook.type";
 import {UnityService} from "../../unity/unity.service";
 import {AdMock} from "../facebook.module";
 import {PLANKTON_GAME_OBJECT_NAME} from "../../unity/unity.types";
+import {first, from, lastValueFrom} from "rxjs";
 
 @injectable()
 export class AdBannerService extends Ad {
@@ -30,25 +31,33 @@ export class LoadBannerBehaviour implements IAdPreloadBehaviour {
     ) {
     }
 
-    preloadAd(adId: string): IAd {
-        const callUnityOnAdLoaded = () => {
-            this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdLoaded", "banner");
+    async preloadAd(adId: string): Promise<IAd> {
+        const ad$ = from(this.fbInstant.loadBannerAdAsync(adId));
+
+        const onAdLoaded = () => {
+            const callUnityOnAdLoaded = () => {
+                this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdLoaded", "banner");
+            }
+            callUnityOnAdLoaded();
+            return new AdMock();
         }
 
-        const callUnityOnAdFailedToLoad = () => {
-            this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdFailedToLoad", "banner");
+        const onAdFailedToLoad = (error: Error) => {
+            const callUnityOnAdFailedToLoad = () => {
+                this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdFailedToLoad", "banner");
+            }
+            callUnityOnAdFailedToLoad();
+            console.error(error)
         }
 
-        this.fbInstant.loadBannerAdAsync(adId)
-            .then(() => {
-                callUnityOnAdLoaded();
+        ad$
+            .pipe(first())
+            .subscribe({
+                next: onAdLoaded,
+                error: onAdFailedToLoad,
             })
-            .catch(function (error: any) {
-                callUnityOnAdFailedToLoad();
-                console.error(error);
-            });
 
-        return new AdMock();
+        return await lastValueFrom(ad$);
     }
 }
 

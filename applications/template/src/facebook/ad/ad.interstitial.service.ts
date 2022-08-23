@@ -6,6 +6,7 @@ import {IAdPreloadBehaviour} from "./ad.preloadBehaviour";
 import {IAdShowBehaviour} from "./ad.showBehaviour";
 import {HideNullBehaviour} from "./ad.hideBehaviour";
 import {PLANKTON_GAME_OBJECT_NAME} from "../../unity/unity.types";
+import {first, from, lastValueFrom} from "rxjs";
 
 @injectable()
 export class AdInterstitialService extends Ad {
@@ -29,35 +30,35 @@ export class PreloadInterstitialBehaviour implements IAdPreloadBehaviour {
     ) {
     }
 
-    preloadAd(adId: string): IAd {
-        let ad: IAd;
-        const getAd = (): IAd => {
+    async preloadAd(adId: string): Promise<IAd> {
+        const ad$ = from(this.fbInstant.getInterstitialAdAsync(adId));
+
+        const onAdPreloaded = (ad: IAd) => {
+            const callUnityOnAdLoaded = () => {
+                this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdLoaded", "interstitial");
+            }
+
+            callUnityOnAdLoaded();
             return ad;
         }
 
-        const setAd = (preloadedAd: IAd) => {
-            ad = preloadedAd;
+        const onAdFailedToPreload = (error: Error) => {
+            const callUnityOnAdFailedToLoad = () => {
+                this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdFailedToLoad", "interstitial");
+            }
+
+            callUnityOnAdFailedToLoad();
+            console.error(error);
         }
 
-        const callUnityOnAdLoaded = () => {
-            this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdLoaded", "interstitial");
-        }
-
-        const callUnityOnAdFailedToLoad = () => {
-            this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdFailedToLoad", "interstitial");
-        }
-
-        this.fbInstant.getInterstitialAdAsync(adId)
-            .then((ad: IAd) => {
-                setAd(ad);
-                callUnityOnAdLoaded();
-            })
-            .catch(function (error: any) {
-                callUnityOnAdFailedToLoad();
-                console.error(error);
+        ad$
+            .pipe(first())
+            .subscribe({
+                next: onAdPreloaded,
+                error: onAdFailedToPreload
             });
 
-        return getAd();
+        return await lastValueFrom(ad$);
     }
 }
 
