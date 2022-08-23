@@ -1,12 +1,12 @@
-import {IAd} from "./ad.class";
-import {AdMock} from "../facebook.module";
+import {FacebookAdMock} from "../facebook.module";
+import {IFacebookAd} from "./ad.type";
 
 export interface IAdPreloadBehaviour {
-    preloadAd(adId: string): Promise<IAd>;
+    preloadAd(adId: string): Promise<IFacebookAd>;
 }
 
 export class PreloadNullBehaviour implements IAdPreloadBehaviour {
-    preloadAd(adId: string): Promise<IAd> {
-        return Promise.resolve(new AdMock());
+    preloadAd(adId: string): Promise<IFacebookAd> {
+        return Promise.resolve(new FacebookAdMock());
     }
 }

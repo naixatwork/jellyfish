@@ -6,8 +6,9 @@ import {
     PreloadInterstitialBehaviour,
     ShowAdInterstitialBehaviour
 } from "./ad/ad.interstitial.service";
-import {FACEBOOK_SERVICE_IDENTIFIERS, IAd, IFBInstantSDK} from "./facebook.type";
+import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "./facebook.type";
 import {AdBannerService, HideBannerBehaviour, LoadBannerBehaviour} from "./ad/ad.banner.service";
+import {IFacebookAd} from "./ad/ad.type";
 
 export class FacebookModule extends ContainerModule {
     public constructor() {
@@ -25,29 +26,28 @@ export class FacebookModule extends ContainerModule {
     }
 }
 
-export class AdMock implements IAd {
+export class FacebookAdMock implements IFacebookAd {
     getPlacementID(): string {
         return "AdMock";
     }
 
-    loadAsync(): Promise<IAd> {
+    loadAsync(): Promise<IFacebookAd> {
         return Promise.resolve(this);
     }
 
-    showAsync(): Promise<IAd> {
+    showAsync(): Promise<IFacebookAd> {
         return Promise.resolve(this);
     }
-
 }
 
 @injectable()
 class FBInstantSDKMock implements IFBInstantSDK {
-    loadBannerAdAsync(adId: string): Promise<IAd> {
-        return Promise.resolve(new AdMock());
+    loadBannerAdAsync(adId: string): Promise<IFacebookAd> {
+        return Promise.resolve(new FacebookAdMock());
     }
 
-    getInterstitialAdAsync(adId: string): Promise<IAd> {
-        return Promise.resolve(new AdMock());
+    getInterstitialAdAsync(adId: string): Promise<IFacebookAd> {
+        return Promise.resolve(new FacebookAdMock());
     }
 
     getSupportedAPIs(): string[] {

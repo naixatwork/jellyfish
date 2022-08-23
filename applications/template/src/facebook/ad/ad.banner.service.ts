@@ -1,16 +1,17 @@
 import {inject, injectable} from "inversify";
-import {Ad, IAd} from "./ad.class";
+import {AdService} from "./ad.abstract";
 import {IAdPreloadBehaviour} from "./ad.preloadBehaviour";
 import {ShowNullBehaviour} from "./ad.showBehaviour";
 import {IAdHideBehaviour} from "./ad.hideBehaviour";
 import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "../facebook.type";
 import {UnityService} from "../../unity/unity.service";
-import {AdMock} from "../facebook.module";
+import {FacebookAdMock} from "../facebook.module";
 import {PLANKTON_GAME_OBJECT_NAME} from "../../unity/unity.types";
 import {first, from, lastValueFrom} from "rxjs";
+import {IFacebookAd} from "./ad.type";
 
 @injectable()
-export class AdBannerService extends Ad {
+export class AdBannerService extends AdService {
     protected preloadBehaviour = this.loadBannerBehaviour;
     protected showBehaviour = new ShowNullBehaviour();
     protected hideAdBehaviour = this.hideBannerBehaviour;
@@ -31,7 +32,7 @@ export class LoadBannerBehaviour implements IAdPreloadBehaviour {
     ) {
     }
 
-    async preloadAd(adId: string): Promise<IAd> {
+    async preloadAd(adId: string): Promise<IFacebookAd> {
         const ad$ = from(this.fbInstant.loadBannerAdAsync(adId));
 
         const onAdLoaded = () => {
@@ -39,7 +40,7 @@ export class LoadBannerBehaviour implements IAdPreloadBehaviour {
                 this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdLoaded", "banner");
             }
             callUnityOnAdLoaded();
-            return new AdMock();
+            return new FacebookAdMock();
         }
 
         const onAdFailedToLoad = (error: Error) => {

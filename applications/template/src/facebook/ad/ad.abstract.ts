@@ -1,11 +1,12 @@
 import {IAdHideBehaviour} from "./ad.hideBehaviour";
 import {IAdPreloadBehaviour} from "./ad.preloadBehaviour";
 import {IAdShowBehaviour} from "./ad.showBehaviour";
+import {IFacebookAd} from "./ad.type";
 
-export abstract class Ad {
-    private _ad: IAd;
+export abstract class AdService {
+    private _ad: IFacebookAd;
 
-    public get ad(): Ad['_ad'] {
+    public get ad(): AdService['_ad'] {
         return this._ad;
     }
 
@@ -32,13 +33,4 @@ export abstract class Ad {
     public hideAd(): void {
         this.hideAdBehaviour.hideAd();
     }
-}
-
-
-export interface IAd {
-    getPlacementID(): string;
-
-    showAsync(): Promise<IAd>;
-
-    loadAsync(): Promise<IAd>;
 }

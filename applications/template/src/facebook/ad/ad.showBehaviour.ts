@@ -1,10 +1,10 @@
-import {IAd} from "./ad.class";
+import {IFacebookAd} from "./ad.type";
 
 export interface IAdShowBehaviour {
-    showAd(ad: IAd): void;
+    showAd(ad: IFacebookAd): void;
 }
 
 export class ShowNullBehaviour implements IAdShowBehaviour {
-    showAd(ad: IAd): void {
+    showAd(ad: IFacebookAd): void {
     }
 }

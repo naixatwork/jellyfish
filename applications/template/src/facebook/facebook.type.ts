@@ -1,4 +1,4 @@
-import {IAd} from "./ad/ad.class";
+import {IFacebookAd} from "./ad/ad.type";
 
 interface IFBInstantSDK {
     initializeAsync(): Promise<any>;
@@ -9,9 +9,9 @@ interface IFBInstantSDK {
 
     getSupportedAPIs(): string[];
 
-    getInterstitialAdAsync(adId: string): Promise<IAd>;
+    getInterstitialAdAsync(adId: string): Promise<IFacebookAd>;
 
-    loadBannerAdAsync(adId: string): Promise<IAd>;
+    loadBannerAdAsync(adId: string): Promise<IFacebookAd>;
 
     hideBannerAdAsync(): void;
 }
@@ -27,4 +27,4 @@ const FACEBOOK_SERVICE_IDENTIFIERS = {
 };
 
 
-export {IAd, IFBInstantSDK, FACEBOOK_SERVICE_IDENTIFIERS};
+export {IFBInstantSDK, FACEBOOK_SERVICE_IDENTIFIERS};
