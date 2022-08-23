@@ -9,7 +9,7 @@ import {FacebookService} from "./src/facebook/facebook.service";
 import {UnityService} from "./src/unity/unity.service";
 import {first, Subject} from "rxjs";
 
-declare var FBInstant: IFBInstantSDK; // comes from Facebook SDK
+declare let FBInstant: IFBInstantSDK; // comes from Facebook SDK
 
 // todo: create app.module.ts and move the container creating logic there
 export const container = new Container({skipBaseClassChecks: true});

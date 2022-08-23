@@ -11,7 +11,8 @@
     "template-serve-production": "webpack watch --config ./applications/template/webpack.template.config.js",
     "applications-build-production": "concurrently \"npm run template-build-production\" \"npm run library-build-production\" ",
     "applications-build-development": "concurrently \"npm run template-build-development\" \"npm run library-build-development\" ",
-    "test:watch": "jest --watch --verbose"
+    "test:watch": "jest --watch --verbose",
+    "lint": "eslint . --ext .ts"
   },
   "author": "",
   "license": "ISC",
@@ -20,7 +21,10 @@
     "@types/lodash": "^4.14.184",
     "@types/node": "^18.7.2",
     "@types/webpack": "^5.28.0",
+    "@typescript-eslint/eslint-plugin": "^5.34.0",
+    "@typescript-eslint/parser": "^5.34.0",
     "concurrently": "^7.3.0",
+    "eslint": "^8.22.0",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^28.1.3",
     "lodash": "^4.17.21",
