@@ -7,7 +7,7 @@ import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "../facebook.type";
 import {UnityService} from "../../unity/unity.service";
 import {FacebookAdMock} from "../facebook.module";
 import {PLANKTON_GAME_OBJECT_NAME} from "../../unity/unity.types";
-import {first, from, lastValueFrom} from "rxjs";
+import {first, from, lastValueFrom, Observable, switchMap, tap} from "rxjs";
 import {IFacebookAd} from "./ad.type";
 
 @injectable()
@@ -32,15 +32,15 @@ export class LoadBannerBehaviour implements IAdPreloadBehaviour {
     ) {
     }
 
-    async preloadAd(adId: string): Promise<IFacebookAd> {
-        const ad$ = from(this.fbInstant.loadBannerAdAsync(adId));
+    preloadAd(adId: string): Observable<IFacebookAd> {
+
 
         const onAdLoaded = () => {
             const callUnityOnAdLoaded = () => {
                 this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdLoaded", "banner");
             }
             callUnityOnAdLoaded();
-            return new FacebookAdMock();
+            // return new FacebookAdMock();
         }
 
         const onAdFailedToLoad = (error: Error) => {
@@ -51,14 +51,14 @@ export class LoadBannerBehaviour implements IAdPreloadBehaviour {
             console.error(error)
         }
 
-        ad$
-            .pipe(first())
-            .subscribe({
-                next: onAdLoaded,
-                error: onAdFailedToLoad,
-            })
-
-        return await lastValueFrom(ad$);
+        return from(this.fbInstant.loadBannerAdAsync(adId))
+            .pipe(
+                first(),
+                tap({
+                    next: onAdLoaded,
+                    error: onAdFailedToLoad
+                })
+            );
     }
 }
 

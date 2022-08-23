@@ -6,7 +6,7 @@ import {IAdPreloadBehaviour} from "./ad.preloadBehaviour";
 import {IAdShowBehaviour} from "./ad.showBehaviour";
 import {HideNullBehaviour} from "./ad.hideBehaviour";
 import {PLANKTON_GAME_OBJECT_NAME} from "../../unity/unity.types";
-import {first, from, lastValueFrom, switchMap} from "rxjs";
+import {catchError, first, from, lastValueFrom, Observable, switchMap, tap} from "rxjs";
 import {IFacebookAd} from "./ad.type";
 
 @injectable()
@@ -31,16 +31,12 @@ export class PreloadInterstitialBehaviour implements IAdPreloadBehaviour {
     ) {
     }
 
-    async preloadAd(adId: string): Promise<IFacebookAd> {
-        const ad$ = from(this.fbInstant.getInterstitialAdAsync(adId));
-
-        const onAdPreloaded = (ad: IFacebookAd) => {
+    preloadAd(adId: string): Observable<IFacebookAd> {
+        const onAdPreloaded = () => {
             const callUnityOnAdLoaded = () => {
                 this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdLoaded", "interstitial");
             }
-
             callUnityOnAdLoaded();
-            return ad;
         }
 
         const onAdFailedToPreload = (error: Error) => {
@@ -52,17 +48,15 @@ export class PreloadInterstitialBehaviour implements IAdPreloadBehaviour {
             console.error(error);
         }
 
-        ad$
+        return from(this.fbInstant.getInterstitialAdAsync(adId))
             .pipe(
                 first(),
-                switchMap((interstitialInstance) => interstitialInstance.loadAsync())
+                switchMap((interstitialInstance) => interstitialInstance.loadAsync()),
+                tap({
+                    next: onAdPreloaded,
+                    error: onAdFailedToPreload
+                }),
             )
-            .subscribe({
-                next: onAdPreloaded,
-                error: onAdFailedToPreload
-            });
-
-        return await lastValueFrom(ad$);
     }
 }
 

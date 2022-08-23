@@ -19,10 +19,11 @@ export abstract class AdService {
     protected abstract hideAdBehaviour: IAdHideBehaviour;
 
     public async preloadAd(adId: string): Promise<void> {
-        await this.preloadBehaviour.preloadAd(adId)
-            .then((preloadedAd) => {
+        await this.preloadBehaviour.preloadAd(adId).subscribe({
+            next: (preloadedAd) => {
                 this.ad = preloadedAd;
-            })
+            }
+        })
     }
 
     public showAd(): void {
