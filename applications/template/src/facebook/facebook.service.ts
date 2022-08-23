@@ -5,7 +5,7 @@ import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "./facebook.type";
 @injectable()
 export class FacebookService {
     constructor(
-        @inject(FACEBOOK_SERVICE_IDENTIFIERS.fbInstantSDK) private readonly fbInstant: IFBInstantSDK,
+        @inject(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK) private readonly fbInstant: IFBInstantSDK,
         private readonly adContainerService: AdContainerService
     ) {
         const afterInitialization = () => {
@@ -21,7 +21,7 @@ export class FacebookService {
     }
 
     private startGame(): void {
-        this.fbInstant.startGameAsync();
+        this.fbInstant.startGameAsync().then();
     }
 
     public logSupportedAPIs(): void {

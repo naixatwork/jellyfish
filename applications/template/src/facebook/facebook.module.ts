@@ -13,15 +13,15 @@ import {IFacebookAd} from "./ad/ad.type";
 export class FacebookModule extends ContainerModule {
     public constructor() {
         super(bind => {
-            bind<FacebookService>(FACEBOOK_SERVICE_IDENTIFIERS.facebookService).to(FacebookService).inSingletonScope();
-            bind(AdContainerService).toSelf();
+            bind(FACEBOOK_SERVICE_IDENTIFIERS.facebookService).to(FacebookService).inSingletonScope();
+            bind(AdContainerService).toSelf().inSingletonScope();
             bind(FACEBOOK_SERVICE_IDENTIFIERS.preloadInterstitialBehaviour).to(PreloadInterstitialBehaviour);
             bind(FACEBOOK_SERVICE_IDENTIFIERS.showAdInterstitialBehaviour).to(ShowAdInterstitialBehaviour);
             bind(FACEBOOK_SERVICE_IDENTIFIERS.loadBannerBehaviour).to(LoadBannerBehaviour);
             bind(FACEBOOK_SERVICE_IDENTIFIERS.hideBannerBehaviour).to(HideBannerBehaviour);
-            bind(AdInterstitialService).toSelf();
-            bind(AdBannerService).toSelf();
-            bind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.fbInstantSDK).to(FBInstantSDKMock).inSingletonScope();
+            bind(AdInterstitialService).toSelf().inSingletonScope();
+            bind(AdBannerService).toSelf().inSingletonScope();
+            bind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).to(FBInstantSDKMock).inSingletonScope();
         });
     }
 }

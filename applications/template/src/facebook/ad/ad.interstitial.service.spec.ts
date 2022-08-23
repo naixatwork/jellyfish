@@ -63,7 +63,7 @@ describe("AdInterstitialService", () => {
     });
 
     test("it should send a message to unity if preloadAd() fails to resolve", async () => {
-        moduleRef.rebind(FACEBOOK_SERVICE_IDENTIFIERS.fbInstantSDK).toConstantValue(new FBInstantSDKFailMock());
+        moduleRef.rebind(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).toConstantValue(new FBInstantSDKFailMock());
         sut = moduleRef.get(AdInterstitialService);
 
         await sut.preloadAd("999");

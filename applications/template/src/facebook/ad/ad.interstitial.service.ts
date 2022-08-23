@@ -1,5 +1,5 @@
 import {inject, injectable} from "inversify";
-import {AdService} from "./ad.abstract";
+import {AdServiceBase} from "./ad.abstract";
 import {UnityService} from "../../unity/unity.service";
 import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "../facebook.type";
 import {IAdPreloadBehaviour} from "./ad.preloadBehaviour";
@@ -10,7 +10,7 @@ import {IFacebookAd} from "./ad.type";
 import {ABR_PLANKTON_NAMES} from "../../unity/unity.types";
 
 @injectable()
-export class AdInterstitialService extends AdService {
+export class AdInterstitialService extends AdServiceBase {
     protected preloadBehaviour = this.preloadInterstitialBehaviour;
     protected showBehaviour = this.showAdInterstitialBehaviour;
     protected hideAdBehaviour = new HideNullBehaviour();
@@ -26,7 +26,7 @@ export class AdInterstitialService extends AdService {
 @injectable()
 export class PreloadInterstitialBehaviour implements IAdPreloadBehaviour {
     constructor(
-        @inject<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.fbInstantSDK) protected readonly fbInstant: IFBInstantSDK,
+        @inject<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK) protected readonly fbInstant: IFBInstantSDK,
         private readonly unityService: UnityService
     ) {
     }
@@ -66,7 +66,7 @@ export class PreloadInterstitialBehaviour implements IAdPreloadBehaviour {
 @injectable()
 export class ShowAdInterstitialBehaviour implements IAdShowBehaviour {
     constructor(
-        @inject(FACEBOOK_SERVICE_IDENTIFIERS.fbInstantSDK) protected readonly fbInstant: IFBInstantSDK,
+        @inject(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK) protected readonly fbInstant: IFBInstantSDK,
         @inject<UnityService>(UnityService) private readonly unityService: UnityService
     ) {
     }

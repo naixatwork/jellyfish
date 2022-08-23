@@ -1,5 +1,6 @@
 import {IFacebookAd} from "./ad/ad.type";
 
+// https://developers.facebook.com/docs/games/instant-games/sdk/fbinstant7.1
 interface IFBInstantSDK {
     initializeAsync(): Promise<any>;
 
@@ -23,7 +24,7 @@ const FACEBOOK_SERVICE_IDENTIFIERS = {
     showAdInterstitialBehaviour: Symbol("showAdInterstitialBehaviour"),
     loadBannerBehaviour: Symbol("loadBannerBehaviour"),
     hideBannerBehaviour: Symbol("hideBannerBehaviour"),
-    fbInstantSDK: Symbol("fbInstantSDK"),
+    FacebookSDK: Symbol("FacebookSDK"),
 };
 
 

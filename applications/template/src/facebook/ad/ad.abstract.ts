@@ -3,10 +3,10 @@ import {IAdPreloadBehaviour} from "./ad.preloadBehaviour";
 import {IAdShowBehaviour} from "./ad.showBehaviour";
 import {IFacebookAd} from "./ad.type";
 
-export abstract class AdService {
+export abstract class AdServiceBase {
     private _ad: IFacebookAd;
 
-    public get ad(): AdService['_ad'] {
+    public get ad(): AdServiceBase['_ad'] {
         return this._ad;
     }
 
