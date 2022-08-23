@@ -11,7 +11,8 @@
   ],
   "rules": {
     "no-alert": "error",
-    "no-console": "warn",
-    "semi": "warn"
+    "no-console": "off",
+    "semi": "warn",
+    "no-empty-function": "off"
   }
 }

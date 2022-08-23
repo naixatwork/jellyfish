@@ -23,7 +23,7 @@ export abstract class AdServiceBase {
             next: (preloadedAd) => {
                 this.ad = preloadedAd;
             }
-        })
+        });
     }
 
     public showAd(): void {

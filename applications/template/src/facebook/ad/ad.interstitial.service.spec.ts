@@ -59,7 +59,7 @@ describe("AdInterstitialService", () => {
             gameObject: ABR_PLANKTON_NAMES.planktonGameObject,
             method: ABR_PLANKTON_NAMES.onAdLoaded,
             value: "interstitial"
-        })
+        });
     });
 
     test("it should send a message to unity if preloadAd() fails to resolve", async () => {
@@ -72,6 +72,6 @@ describe("AdInterstitialService", () => {
             gameObject: ABR_PLANKTON_NAMES.planktonGameObject,
             method: ABR_PLANKTON_NAMES.onAdFailedToLoad,
             value: "interstitial"
-        })
-    })
+        });
+    });
 });

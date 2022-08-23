@@ -5,7 +5,7 @@ import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "../facebook.type";
 import {IAdPreloadBehaviour} from "./ad.preloadBehaviour";
 import {IAdShowBehaviour} from "./ad.showBehaviour";
 import {HideNullBehaviour} from "./ad.hideBehaviour";
-import {catchError, first, from, lastValueFrom, Observable, switchMap, tap} from "rxjs";
+import {first, from, Observable, switchMap, tap} from "rxjs";
 import {IFacebookAd} from "./ad.type";
 import {ABR_PLANKTON_NAMES} from "../../unity/unity.types";
 

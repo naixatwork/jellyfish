@@ -9,4 +9,4 @@ export default {
         "^.+\\.ts?$": "ts-jest",
     },
     setupFilesAfterEnv: ["./setup-tests.ts"],
-}
+};

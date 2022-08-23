@@ -37,18 +37,18 @@ export class LoadBannerBehaviour implements IAdPreloadBehaviour {
         const onAdLoaded = () => {
             const callUnityOnAdLoaded = () => {
                 this.unityService.sendMessage(ABR_PLANKTON_NAMES.planktonGameObject, "OnAdLoaded", "banner");
-            }
+            };
             callUnityOnAdLoaded();
             // return new FacebookAdMock();
-        }
+        };
 
         const onAdFailedToLoad = (error: Error) => {
             const callUnityOnAdFailedToLoad = () => {
                 this.unityService.sendMessage(ABR_PLANKTON_NAMES.planktonGameObject, "OnAdFailedToLoad", "banner");
-            }
+            };
             callUnityOnAdFailedToLoad();
-            console.error(error)
-        }
+            console.error(error);
+        };
 
         return from(this.fbInstant.loadBannerAdAsync(adId))
             .pipe(
@@ -65,15 +65,10 @@ export class LoadBannerBehaviour implements IAdPreloadBehaviour {
 export class HideBannerBehaviour implements IAdHideBehaviour {
     constructor(
         @inject(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK) protected readonly fbInstant: IFBInstantSDK,
-        private readonly unityService: UnityService
     ) {
     }
 
     hideAd(): void {
-        const callUnityOnAdLoaded = () => {
-            this.unityService.sendMessage(ABR_PLANKTON_NAMES.planktonGameObject, "OnAdLoaded", "banner");
-        }
-
         this.fbInstant.hideBannerAdAsync();
     }
 }

@@ -6,7 +6,8 @@ import {IUnityInstance, UNITY_SERVICE_IDENTIFIERS} from "./unity.types";
 class UnityInstanceMock implements IUnityInstance {
     public static hasBeenCalled = false;
 
-    SendMessage(gameObject: string, method: string, value: string): void {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    SendMessage(gameObject: string, method: string, value?: string): void {
         UnityInstanceMock.hasBeenCalled = true;
     }
 }
@@ -16,7 +17,7 @@ describe("unity.service", () => {
 
     beforeEach(() => {
         const moduleRef = createTestingModule(UnityModule);
-        moduleRef.rebind<IUnityInstance>(UNITY_SERVICE_IDENTIFIERS.unityInstance).toConstantValue(new UnityInstanceMock())
+        moduleRef.rebind<IUnityInstance>(UNITY_SERVICE_IDENTIFIERS.unityInstance).toConstantValue(new UnityInstanceMock());
         sut = moduleRef.get(UnityService);
     });
 
@@ -27,5 +28,5 @@ describe("unity.service", () => {
     test("it should call UnityInstance's SendMessage method", () => {
         sut.sendMessage("test", "test", "test");
         expect(UnityInstanceMock.hasBeenCalled).toBeTruthy();
-    })
+    });
 });
