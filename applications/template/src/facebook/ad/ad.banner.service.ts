@@ -5,10 +5,9 @@ import {ShowNullBehaviour} from "./ad.showBehaviour";
 import {IAdHideBehaviour} from "./ad.hideBehaviour";
 import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "../facebook.type";
 import {UnityService} from "../../unity/unity.service";
-import {FacebookAdMock} from "../facebook.module";
-import {PLANKTON_GAME_OBJECT_NAME} from "../../unity/unity.types";
-import {first, from, lastValueFrom, Observable, switchMap, tap} from "rxjs";
+import {first, from, Observable, tap} from "rxjs";
 import {IFacebookAd} from "./ad.type";
+import {ABR_PLANKTON_NAMES} from "../../unity/unity.types";
 
 @injectable()
 export class AdBannerService extends AdService {
@@ -37,7 +36,7 @@ export class LoadBannerBehaviour implements IAdPreloadBehaviour {
 
         const onAdLoaded = () => {
             const callUnityOnAdLoaded = () => {
-                this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdLoaded", "banner");
+                this.unityService.sendMessage(ABR_PLANKTON_NAMES.planktonGameObject, "OnAdLoaded", "banner");
             }
             callUnityOnAdLoaded();
             // return new FacebookAdMock();
@@ -45,7 +44,7 @@ export class LoadBannerBehaviour implements IAdPreloadBehaviour {
 
         const onAdFailedToLoad = (error: Error) => {
             const callUnityOnAdFailedToLoad = () => {
-                this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdFailedToLoad", "banner");
+                this.unityService.sendMessage(ABR_PLANKTON_NAMES.planktonGameObject, "OnAdFailedToLoad", "banner");
             }
             callUnityOnAdFailedToLoad();
             console.error(error)
@@ -72,7 +71,7 @@ export class HideBannerBehaviour implements IAdHideBehaviour {
 
     hideAd(): void {
         const callUnityOnAdLoaded = () => {
-            this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdLoaded", "banner");
+            this.unityService.sendMessage(ABR_PLANKTON_NAMES.planktonGameObject, "OnAdLoaded", "banner");
         }
 
         this.fbInstant.hideBannerAdAsync();

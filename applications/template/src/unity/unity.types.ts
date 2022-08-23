@@ -2,7 +2,11 @@ interface IUnityInstance {
     SendMessage: (gameObject: string, method: string, value: string) => void;
 }
 
-export const PLANKTON_GAME_OBJECT_NAME = "Plankton";
+export const ABR_PLANKTON_NAMES = {
+    planktonGameObject: "Plankton",
+    onAdLoaded: "OnAdLoaded",
+    onAdFailedToLoad: "OnAdFailedToLoad",
+}
 
 const UNITY_SERVICE_IDENTIFIERS = {
     unityInstance: Symbol.for("unityInstance"),

@@ -41,7 +41,7 @@ export class FacebookAdMock implements IFacebookAd {
 }
 
 @injectable()
-class FBInstantSDKMock implements IFBInstantSDK {
+export class FBInstantSDKMock implements IFBInstantSDK {
     loadBannerAdAsync(adId: string): Promise<IFacebookAd> {
         return Promise.resolve(new FacebookAdMock());
     }

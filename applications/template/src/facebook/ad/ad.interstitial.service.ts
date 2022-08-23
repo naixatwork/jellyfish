@@ -5,9 +5,9 @@ import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "../facebook.type";
 import {IAdPreloadBehaviour} from "./ad.preloadBehaviour";
 import {IAdShowBehaviour} from "./ad.showBehaviour";
 import {HideNullBehaviour} from "./ad.hideBehaviour";
-import {PLANKTON_GAME_OBJECT_NAME} from "../../unity/unity.types";
 import {catchError, first, from, lastValueFrom, Observable, switchMap, tap} from "rxjs";
 import {IFacebookAd} from "./ad.type";
+import {ABR_PLANKTON_NAMES} from "../../unity/unity.types";
 
 @injectable()
 export class AdInterstitialService extends AdService {
@@ -34,14 +34,17 @@ export class PreloadInterstitialBehaviour implements IAdPreloadBehaviour {
     preloadAd(adId: string): Observable<IFacebookAd> {
         const onAdPreloaded = () => {
             const callUnityOnAdLoaded = () => {
-                this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdLoaded", "interstitial");
+                this.unityService.sendMessage(
+                    ABR_PLANKTON_NAMES.planktonGameObject,
+                    ABR_PLANKTON_NAMES.onAdLoaded,
+                    "interstitial");
             }
             callUnityOnAdLoaded();
         }
 
         const onAdFailedToPreload = (error: Error) => {
             const callUnityOnAdFailedToLoad = () => {
-                this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdFailedToLoad", "interstitial");
+                this.unityService.sendMessage(ABR_PLANKTON_NAMES.planktonGameObject, "OnAdFailedToLoad", "interstitial");
             }
 
             callUnityOnAdFailedToLoad();
@@ -70,7 +73,7 @@ export class ShowAdInterstitialBehaviour implements IAdShowBehaviour {
 
     public showAd(ad: IFacebookAd) {
         const callUnityOnAdShowed = () => {
-            this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdShowed", JSON.stringify({
+            this.unityService.sendMessage(ABR_PLANKTON_NAMES.planktonGameObject, "OnAdShowed", JSON.stringify({
                 format: "interstitial",
                 network: "facebook",
                 response_id: "0"
@@ -78,7 +81,7 @@ export class ShowAdInterstitialBehaviour implements IAdShowBehaviour {
         }
 
         const callUnityOnAdFailedToShow = () => {
-            this.unityService.sendMessage(PLANKTON_GAME_OBJECT_NAME, "OnAdFailedToShow", JSON.stringify({
+            this.unityService.sendMessage(ABR_PLANKTON_NAMES.planktonGameObject, "OnAdFailedToShow", JSON.stringify({
                 format: "interstitial",
                 network: "facebook",
                 response_id: "0"
