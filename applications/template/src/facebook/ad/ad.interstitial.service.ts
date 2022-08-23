@@ -38,18 +38,18 @@ export class PreloadInterstitialBehaviour implements IAdPreloadBehaviour {
                     ABR_PLANKTON_NAMES.planktonGameObject,
                     ABR_PLANKTON_NAMES.onAdLoaded,
                     "interstitial");
-            }
+            };
             callUnityOnAdLoaded();
-        }
+        };
 
         const onAdFailedToPreload = (error: Error) => {
             const callUnityOnAdFailedToLoad = () => {
                 this.unityService.sendMessage(ABR_PLANKTON_NAMES.planktonGameObject, "OnAdFailedToLoad", "interstitial");
-            }
+            };
 
             callUnityOnAdFailedToLoad();
             console.error(error);
-        }
+        };
 
         return from(this.fbInstant.getInterstitialAdAsync(adId))
             .pipe(
@@ -59,7 +59,7 @@ export class PreloadInterstitialBehaviour implements IAdPreloadBehaviour {
                     next: onAdPreloaded,
                     error: onAdFailedToPreload
                 }),
-            )
+            );
     }
 }
 
@@ -77,16 +77,16 @@ export class ShowAdInterstitialBehaviour implements IAdShowBehaviour {
                 format: "interstitial",
                 network: "facebook",
                 response_id: "0"
-            }))
-        }
+            }));
+        };
 
         const callUnityOnAdFailedToShow = () => {
             this.unityService.sendMessage(ABR_PLANKTON_NAMES.planktonGameObject, "OnAdFailedToShow", JSON.stringify({
                 format: "interstitial",
                 network: "facebook",
                 response_id: "0"
-            }))
-        }
+            }));
+        };
 
         if (!ad) {
             callUnityOnAdFailedToShow();
@@ -97,9 +97,9 @@ export class ShowAdInterstitialBehaviour implements IAdShowBehaviour {
             .then(() => {
                 callUnityOnAdShowed();
             })
-            .catch(function (error: any) {
+            .catch(function (error: Error) {
                 callUnityOnAdFailedToShow();
-                console.error(error)
-            })
+                console.error(error);
+            });
     }
 }
