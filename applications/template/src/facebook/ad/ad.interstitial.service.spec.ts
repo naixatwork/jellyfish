@@ -16,7 +16,6 @@ describe("AdInterstitialService", () => {
     });
 
     test("it should return an Ad", async () => {
-        console.log(sut.ad)
         await sut.preloadAd("42323");
         expect(sut.ad).toBeDefined();
     });

@@ -21,7 +21,6 @@ export abstract class AdService {
     public async preloadAd(adId: string): Promise<void> {
         await this.preloadBehaviour.preloadAd(adId)
             .then((preloadedAd) => {
-                console.log({preloadedAd});
                 this.ad = preloadedAd;
             })
     }
