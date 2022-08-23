@@ -6,6 +6,7 @@ import {ABR_PLANKTON_NAMES, IUnityInstance, UNITY_SERVICE_IDENTIFIERS} from "../
 import {Container} from "inversify";
 import {IFacebookAd} from "./ad.type";
 import {FACEBOOK_SERVICE_IDENTIFIERS} from "../facebook.type";
+import {last, tail} from "lodash";
 
 class UnityInstanceMock implements IUnityInstance {
     public static logStack: {
@@ -40,10 +41,6 @@ describe("AdInterstitialService", () => {
         sut = moduleRef.get(AdInterstitialService);
     });
 
-    afterEach(() => {
-        UnityInstanceMock.logStack = [];
-    })
-
     test("it should be defined", () => {
         expect(sut).toBeDefined();
     });
@@ -58,7 +55,7 @@ describe("AdInterstitialService", () => {
     test("it should send a message to unity if preloadAd() resolves successfully", async () => {
         await sut.preloadAd("999");
 
-        expect(UnityInstanceMock.logStack[0]).toEqual({
+        expect(last(UnityInstanceMock.logStack)).toEqual({
             gameObject: ABR_PLANKTON_NAMES.planktonGameObject,
             method: ABR_PLANKTON_NAMES.onAdLoaded,
             value: "interstitial"
@@ -71,7 +68,7 @@ describe("AdInterstitialService", () => {
 
         await sut.preloadAd("999");
 
-        expect(UnityInstanceMock.logStack[0]).toEqual({
+        expect(last(UnityInstanceMock.logStack)).toEqual({
             gameObject: ABR_PLANKTON_NAMES.planktonGameObject,
             method: ABR_PLANKTON_NAMES.onAdFailedToLoad,
             value: "interstitial"
