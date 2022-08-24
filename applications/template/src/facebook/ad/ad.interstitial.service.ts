@@ -44,7 +44,10 @@ export class PreloadInterstitialBehaviour implements IAdPreloadBehaviour {
 
         const onAdFailedToPreload = (error: Error) => {
             const callUnityOnAdFailedToLoad = () => {
-                this.unityService.sendMessage(ABR_PLANKTON_NAMES.planktonGameObject, "OnAdFailedToLoad", "interstitial");
+                this.unityService.sendMessage(
+                    ABR_PLANKTON_NAMES.planktonGameObject,
+                    ABR_PLANKTON_NAMES.onAdFailedToLoad,
+                    "interstitial");
             };
 
             callUnityOnAdFailedToLoad();
@@ -71,21 +74,27 @@ export class ShowAdInterstitialBehaviour implements IAdShowBehaviour {
     ) {
     }
 
-    public showAd(ad: IFacebookAd) {
-        const callUnityOnAdShowed = () => {
-            this.unityService.sendMessage(ABR_PLANKTON_NAMES.planktonGameObject, "OnAdShowed", JSON.stringify({
-                format: "interstitial",
-                network: "facebook",
-                response_id: "0"
-            }));
+    public showAd(ad: IFacebookAd): void {
+        const callUnityOnAdShowed = (): void => {
+            this.unityService.sendMessage(
+                ABR_PLANKTON_NAMES.planktonGameObject,
+                "OnAdShowed",
+                JSON.stringify({
+                    format: "interstitial",
+                    network: "facebook",
+                    response_id: "0"
+                }));
         };
 
-        const callUnityOnAdFailedToShow = () => {
-            this.unityService.sendMessage(ABR_PLANKTON_NAMES.planktonGameObject, "OnAdFailedToShow", JSON.stringify({
-                format: "interstitial",
-                network: "facebook",
-                response_id: "0"
-            }));
+        const callUnityOnAdFailedToShow = (): void => {
+            this.unityService.sendMessage(
+                ABR_PLANKTON_NAMES.planktonGameObject,
+                "OnAdFailedToShow",
+                JSON.stringify({
+                    format: "interstitial",
+                    network: "facebook",
+                    response_id: "0"
+                }));
         };
 
         if (!ad) {
@@ -93,13 +102,13 @@ export class ShowAdInterstitialBehaviour implements IAdShowBehaviour {
             return;
         }
 
-        ad.showAsync()
-            .then(() => {
-                callUnityOnAdShowed();
-            })
-            .catch(function (error: Error) {
-                callUnityOnAdFailedToShow();
-                console.error(error);
+        from(ad.showAsync())
+            .pipe(
+                first()
+            )
+            .subscribe({
+                next: callUnityOnAdShowed,
+                error: callUnityOnAdFailedToShow
             });
     }
 }
