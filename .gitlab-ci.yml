@@ -5,10 +5,22 @@ before_script:
 
 stages:
   - test
+  - build
 
 unit-test-job:
   stage: test
   tags:
     - hetzner
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: on_success
+    - when: never
   script:
     - npx jest --clearCache
+
+build-job:
+  stage: build
+  tags:
+    - hetzner
+  script:
+    - npm run applications-build-production
