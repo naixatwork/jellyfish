@@ -8,6 +8,8 @@ stages:
 
 unit-test-job:
   stage: test
+  tags:
+    - hetzner
   script:
     - echo "Running unit tests"
     - npm run test:push
