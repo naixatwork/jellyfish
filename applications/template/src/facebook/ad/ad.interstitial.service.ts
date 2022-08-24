@@ -98,7 +98,7 @@ export class ShowAdInterstitialBehaviour implements IAdShowBehaviour {
         };
 
         if (!ad) {
-            // callUnityOnAdFailedToShow();
+            callUnityOnAdFailedToShow();
             return;
         }
 
