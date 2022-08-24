@@ -1,6 +1,6 @@
 image: node:alpine
 before_script:
-  - npm install npm -g
+  - npm install npm -g --prefer-offline
   - npm ci
 
 stages:
@@ -11,9 +11,5 @@ unit-test-job:
   tags:
     - hetzner
   script:
-    - 'npx jest --ci --reporters=default --reporters=jest-junit'
-  artifacts:
-    when: always
-    reports:
-      junit:
-        - junit.xml
+    - npx jest --v
+    - npx jest --ci
