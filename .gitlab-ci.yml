@@ -8,8 +8,6 @@ stages:
 
 unit-test-job:
   stage: test
-  before_script:
-    - npm install npm -g --prefer-offline
   script:
     - echo "Running unit tests"
     - npm run test:push

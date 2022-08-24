@@ -12,6 +12,7 @@
     "applications-build-production": "concurrently \"npm run template-build-production\" \"npm run library-build-production\" ",
     "applications-build-development": "concurrently \"npm run template-build-development\" \"npm run library-build-development\" ",
     "test:watch": "jest --watch --verbose",
+    "test:push": "jest",
     "lint": "eslint . --ext .ts"
   },
   "author": "",
