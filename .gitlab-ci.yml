@@ -17,6 +17,7 @@ unit-test-job:
     - when: never
   script:
     - npx jest --clearCache
+    - npm run test:publish
 
 build-job:
   stage: build
