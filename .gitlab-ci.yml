@@ -11,5 +11,4 @@ unit-test-job:
   tags:
     - hetzner
   script:
-    - npx jest --v
-    - npx jest --ci
+    - npx jest --clearCache
