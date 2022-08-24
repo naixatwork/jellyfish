@@ -1,13 +1,14 @@
-import {AdInterstitialService} from "./ad.interstitial.service";
+import {AdInterstitialService, PreloadInterstitialBehaviour} from "./ad.interstitial.service";
 import {createTestingModule} from "../../shared/create-testing-module.function";
 import {FacebookAdMock, FacebookModule, FBInstantSDKMock} from "../facebook.module";
 import {UnityModule} from "../../unity/unity.module";
 import {ABR_PLANKTON_NAMES, IUnityInstance, UNITY_SERVICE_IDENTIFIERS} from "../../unity/unity.types";
-import {Container} from "inversify";
+import {Container, injectable} from "inversify";
 import {IFacebookAd} from "./ad.type";
-import {FACEBOOK_SERVICE_IDENTIFIERS} from "../facebook.type";
+import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "../facebook.type";
 import _ from "lodash";
 
+@injectable()
 class UnityInstanceMock implements IUnityInstance {
     public static logStack: {
         gameObject: string,
@@ -25,6 +26,7 @@ class UnityInstanceMock implements IUnityInstance {
     }
 }
 
+@injectable()
 class FBInstantSDKFailMock extends FBInstantSDKMock {
     override getInterstitialAdAsync(adId: string): Promise<IFacebookAd> {
         return Promise.reject("[FBInstantSDKFailMock]: for testing purposes");
@@ -37,7 +39,7 @@ describe("AdInterstitialService", () => {
 
     beforeEach(() => {
         moduleRef = createTestingModule(FacebookModule, UnityModule);
-        moduleRef.rebind(UNITY_SERVICE_IDENTIFIERS.unityInstance).toConstantValue(new UnityInstanceMock())
+        moduleRef.rebind(UNITY_SERVICE_IDENTIFIERS.unityInstance).to(UnityInstanceMock);
         sut = moduleRef.get(AdInterstitialService);
     });
 
@@ -63,10 +65,11 @@ describe("AdInterstitialService", () => {
     });
 
     test("it should send a message to unity if preloadAd() fails to resolve", async () => {
-        moduleRef.rebind(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).toConstantValue(new FBInstantSDKFailMock());
+        moduleRef.rebind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).to(FBInstantSDKFailMock);
         sut = moduleRef.get(AdInterstitialService);
 
         await sut.preloadAd("999");
+        console.log(UnityInstanceMock.logStack);
 
         expect(_.last(UnityInstanceMock.logStack)).toEqual({
             gameObject: ABR_PLANKTON_NAMES.planktonGameObject,
