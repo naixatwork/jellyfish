@@ -16,9 +16,9 @@ export class AdContainerService {
         if (adType === "interstitial") {
             this.adInterstitialService.preloadAd(adId);
         } else if (adType === "reward") {
-            this.adInterstitialService.preloadAd(adId);
+            // this.adInterstitialService.preloadAd(adId);
         } else if (adType === "rewardInterstitial") {
-            this.adInterstitialService.preloadAd(adId);
+            // this.adInterstitialService.preloadAd(adId);
         } else if (adType === "banner") {
             this.adBannerService.preloadAd(adId);
         } else {
@@ -30,9 +30,9 @@ export class AdContainerService {
         if (adType === "interstitial") {
             this.adInterstitialService.showAd();
         } else if (adType === "reward") {
-            this.adInterstitialService.showAd();
+            // this.adInterstitialService.showAd();
         } else if (adType === "rewardInterstitial") {
-            this.adInterstitialService.showAd();
+            // this.adInterstitialService.showAd();
         } else if (adType === "banner") {
             this.adBannerService.showAd();
         } else {
@@ -44,9 +44,9 @@ export class AdContainerService {
         if (adType === "interstitial") {
             this.adInterstitialService.hideAd();
         } else if (adType === "reward") {
-            this.adInterstitialService.hideAd();
+            // this.adInterstitialService.hideAd();
         } else if (adType === "rewardInterstitial") {
-            this.adInterstitialService.hideAd();
+            // this.adInterstitialService.hideAd();
         } else if (adType === "banner") {
             this.adBannerService.hideAd();
         } else {
