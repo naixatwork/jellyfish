@@ -11,7 +11,7 @@ export class FacebookService {
         const afterInitialization = () => {
             this.setLoadingProgressTo100();
             this.startGame();
-        }
+        };
 
         fbInstant.initializeAsync().then(afterInitialization);
     }
@@ -34,5 +34,9 @@ export class FacebookService {
 
     public showAd(adType: adTypes): void {
         this.adContainerService.showAd(adType);
+    }
+
+    public hideAd(adType: adTypes): void {
+        this.adContainerService.hideAd(adType);
     }
 }

@@ -32,19 +32,24 @@ export class LoadBannerBehaviour implements IAdPreloadBehaviour {
     }
 
     preloadAd(adId: string): Observable<IFacebookAd> {
-
-
         const onAdLoaded = () => {
             const callUnityOnAdLoaded = () => {
-                this.unityService.sendMessage(ABR_PLANKTON_NAMES.planktonGameObject, "OnAdLoaded", "banner");
+                this.unityService.sendMessage(
+                    ABR_PLANKTON_NAMES.planktonGameObject,
+                    ABR_PLANKTON_NAMES.onAdLoaded,
+                    "banner"
+                );
             };
             callUnityOnAdLoaded();
-            // return new FacebookAdMock();
         };
 
         const onAdFailedToLoad = (error: Error) => {
             const callUnityOnAdFailedToLoad = () => {
-                this.unityService.sendMessage(ABR_PLANKTON_NAMES.planktonGameObject, "OnAdFailedToLoad", "banner");
+                this.unityService.sendMessage(
+                    ABR_PLANKTON_NAMES.planktonGameObject,
+                    ABR_PLANKTON_NAMES.onAdFailedToLoad,
+                    "banner"
+                );
             };
             callUnityOnAdFailedToLoad();
             console.error(error);
@@ -69,6 +74,8 @@ export class HideBannerBehaviour implements IAdHideBehaviour {
     }
 
     hideAd(): void {
-        this.fbInstant.hideBannerAdAsync();
+        from(this.fbInstant.hideBannerAdAsync())
+            .pipe(first())
+            .subscribe();
     }
 }

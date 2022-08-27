@@ -1,6 +1,5 @@
 const path = require('path');
 const packageName = require('../../package.json').name;
-
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 

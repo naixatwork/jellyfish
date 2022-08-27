@@ -14,7 +14,7 @@ interface IFBInstantSDK {
 
     loadBannerAdAsync(adId: string): Promise<IFacebookAd>;
 
-    hideBannerAdAsync(): void;
+    hideBannerAdAsync(): Promise<void>;
 }
 
 

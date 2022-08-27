@@ -65,6 +65,7 @@ export class FBInstantSDKMock implements IFBInstantSDK {
         return Promise.resolve(undefined);
     }
 
-    hideBannerAdAsync(): void {
+    hideBannerAdAsync(): Promise<void> {
+        return Promise.resolve();
     }
 }

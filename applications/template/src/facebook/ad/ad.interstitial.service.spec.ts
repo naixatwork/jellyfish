@@ -43,18 +43,22 @@ describe("AdInterstitialService", () => {
         sut = moduleRef.get(AdInterstitialService);
     });
 
+    afterEach(() => {
+        UnityInstanceMock.logStack = [];
+    });
+
     test("it should be defined", () => {
         expect(sut).toBeDefined();
     });
 
-    test("it should return store preloaded Ad instance after calling preloadAd()", async () => {
+    test("it should set preloaded Ad instance after calling preloadAd()", async () => {
         await sut.preloadAd("999");
 
         expect(sut.ad).toBeDefined();
         expect(sut.ad).toBeInstanceOf(FacebookAdMock);
     });
 
-    test("it should send onAdLoaded message to unity if preloadAd() resolves successfully", async () => {
+    test("it should send OnAdLoaded message to unity if preloadAd() resolves successfully", async () => {
         await sut.preloadAd("999");
 
         expect(_.last(UnityInstanceMock.logStack)).toEqual({
@@ -64,7 +68,7 @@ describe("AdInterstitialService", () => {
         });
     });
 
-    test("it should send onAdFailedToLoad message to unity if preloadAd() fails to resolve", async () => {
+    test("it should send OnAdLoadFailed message to unity if preloadAd() fails to resolve", async () => {
         moduleRef.rebind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).to(FBInstantSDKFailMock);
         sut = moduleRef.get(AdInterstitialService);
 
