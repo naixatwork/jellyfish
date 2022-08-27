@@ -3,6 +3,7 @@ import {AdInterstitialService} from "./ad.interstitial.service";
 import {AdBannerService} from "./ad.banner.service";
 import {FACEBOOK_SERVICE_IDENTIFIERS} from "../facebook.type";
 import {AdRewardedService} from "./ad.rewarded.service";
+import {AdRewardedInterstitialService} from "./ad.rewardedInterstitial.service";
 
 export type adTypes = "interstitial" | "banner" | "rewarded" | "rewardedInterstitial";
 
@@ -11,7 +12,8 @@ export class AdContainerService {
     constructor(
         private readonly adInterstitialService: AdInterstitialService,
         private readonly adBannerService: AdBannerService,
-        @inject(FACEBOOK_SERVICE_IDENTIFIERS.adRewardedService) private readonly adRewardedService: AdRewardedService
+        @inject(FACEBOOK_SERVICE_IDENTIFIERS.adRewardedService) private readonly adRewardedService: AdRewardedService,
+        @inject(FACEBOOK_SERVICE_IDENTIFIERS.adRewardedInterstitialService) private readonly adRewardedInterstitialService: AdRewardedInterstitialService
     ) {
     }
 
@@ -21,7 +23,7 @@ export class AdContainerService {
         } else if (adType === "rewarded") {
             this.adRewardedService.preloadAd(adId);
         } else if (adType === "rewardedInterstitial") {
-            // this.adInterstitialService.preloadAd(adId);
+            this.adRewardedInterstitialService.preloadAd(adId);
         } else if (adType === "banner") {
             this.adBannerService.preloadAd(adId);
         } else {
@@ -35,7 +37,7 @@ export class AdContainerService {
         } else if (adType === "rewarded") {
             this.adRewardedService.showAd();
         } else if (adType === "rewardedInterstitial") {
-            // this.adInterstitialService.showAd();
+            this.adRewardedInterstitialService.showAd();
         } else if (adType === "banner") {
             this.adBannerService.showAd();
         } else {
@@ -49,7 +51,7 @@ export class AdContainerService {
         } else if (adType === "rewarded") {
             this.adRewardedService.hideAd();
         } else if (adType === "rewardedInterstitial") {
-            // this.adInterstitialService.hideAd();
+            this.adRewardedInterstitialService.hideAd();
         } else if (adType === "banner") {
             this.adBannerService.hideAd();
         } else {
