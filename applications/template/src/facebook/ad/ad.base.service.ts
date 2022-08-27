@@ -1,8 +1,8 @@
 import {IAdHideBehaviour} from "./ad.hideBehaviour";
-import {IAdShowBehaviour} from "./ad.showBehaviour";
 import {IFacebookAd} from "./ad.type";
 import {adTypes} from "./ad.container.service";
 import {IAdLoadBehaviour} from "./ad.loadBehaviour.ts/ad.loadBehaviour.type";
+import {IAdShowBehaviour} from "./ad.showBehaviour/ad.showBehaviour.type";
 
 export abstract class AdBaseService {
     private _ad: IFacebookAd;

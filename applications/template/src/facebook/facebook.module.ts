@@ -57,6 +57,10 @@ export class FBInstantSDKMock implements IFBInstantSDK {
         return Promise.resolve(new FacebookAdMock());
     }
 
+    getRewardedVideoAsync(adId: string): Promise<IFacebookAd> {
+        return Promise.resolve(new FacebookAdMock());
+    }
+
     getSupportedAPIs(): string[] {
         return [];
     }

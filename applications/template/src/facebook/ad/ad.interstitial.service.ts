@@ -3,12 +3,12 @@ import {AdBaseService} from "./ad.base.service";
 import {UnityService} from "../../unity/unity.service";
 import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "../facebook.type";
 import {PreloadBehaviour} from "./ad.loadBehaviour.ts/ad.preloadBehaviour";
-import {IAdShowBehaviour} from "./ad.showBehaviour";
 import {HideNullBehaviour} from "./ad.hideBehaviour";
 import {first, from} from "rxjs";
 import {IFacebookAd} from "./ad.type";
 import {ABR_PLANKTON_NAMES} from "../../unity/unity.types";
 import {adTypes} from "./ad.container.service";
+import {IAdShowBehaviour} from "./ad.showBehaviour/ad.showBehaviour.type";
 
 @injectable()
 export class AdInterstitialService extends AdBaseService {

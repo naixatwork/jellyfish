@@ -23,6 +23,8 @@ interface IFBInstantSDK {
 
     getInterstitialAdAsync(adId: string): Promise<IFacebookAd>;
 
+    getRewardedVideoAsync(adId: string): Promise<IFacebookAd>;
+
     loadBannerAdAsync(adId: string): Promise<IFacebookAd>;
 
     hideBannerAdAsync(): Promise<void>;

@@ -2,7 +2,7 @@ import {injectable} from "inversify";
 import {AdInterstitialService} from "./ad.interstitial.service";
 import {AdBannerService} from "./ad.banner.service";
 
-export type adTypes = "interstitial" | "banner" | "reward" | "rewardInterstitial";
+export type adTypes = "interstitial" | "banner" | "rewarded" | "rewardedInterstitial";
 
 @injectable()
 export class AdContainerService {
@@ -15,9 +15,9 @@ export class AdContainerService {
     public preloadAd(adType: adTypes, adId: string): void {
         if (adType === "interstitial") {
             this.adInterstitialService.preloadAd(adId);
-        } else if (adType === "reward") {
+        } else if (adType === "rewarded") {
             // this.adInterstitialService.preloadAd(adId);
-        } else if (adType === "rewardInterstitial") {
+        } else if (adType === "rewardedInterstitial") {
             // this.adInterstitialService.preloadAd(adId);
         } else if (adType === "banner") {
             this.adBannerService.preloadAd(adId);
@@ -29,9 +29,9 @@ export class AdContainerService {
     public showAd(adType: adTypes): void {
         if (adType === "interstitial") {
             this.adInterstitialService.showAd();
-        } else if (adType === "reward") {
+        } else if (adType === "rewarded") {
             // this.adInterstitialService.showAd();
-        } else if (adType === "rewardInterstitial") {
+        } else if (adType === "rewardedInterstitial") {
             // this.adInterstitialService.showAd();
         } else if (adType === "banner") {
             this.adBannerService.showAd();
@@ -43,9 +43,9 @@ export class AdContainerService {
     public hideAd(adType: adTypes): void {
         if (adType === "interstitial") {
             this.adInterstitialService.hideAd();
-        } else if (adType === "reward") {
+        } else if (adType === "rewarded") {
             // this.adInterstitialService.hideAd();
-        } else if (adType === "rewardInterstitial") {
+        } else if (adType === "rewardedInterstitial") {
             // this.adInterstitialService.hideAd();
         } else if (adType === "banner") {
             this.adBannerService.hideAd();
