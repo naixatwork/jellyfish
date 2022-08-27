@@ -107,7 +107,7 @@ describe("AdInterstitialService", () => {
         expect(TestAdMock.hasShowAsyncCalled).toBeTruthy();
     });
 
-    test("it should send OnAdShowed message to unity if showAd() resolves successfully", async () => {
+    test("it should send OnAdShowed with interstitial as value message to unity if showAd() resolves successfully", async () => {
         await sut.preloadAd("999");
         await sut.showAd();
 

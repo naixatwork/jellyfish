@@ -39,7 +39,7 @@ export class PreloadBehaviour implements IAdLoadBehaviour {
         return from(asyncPreloadFunction)
             .pipe(
                 first(),
-                switchMap((adInstance) => adInstance.loadAsync()),
+                switchMap((adInstance) => from(adInstance.loadAsync())),
                 tap({
                     next: onAdPreloaded,
                     error: onAdFailedToPreload
