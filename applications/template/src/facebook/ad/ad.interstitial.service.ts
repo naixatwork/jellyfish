@@ -12,14 +12,14 @@ import {adTypes} from "./ad.container.service";
 
 @injectable()
 export class AdInterstitialService extends AdBaseService {
-    protected preloadBehaviour = this._preloadBehaviour;
+    protected loadBehaviour = this.preloadBehaviour;
     protected showBehaviour = this.showAdInterstitialBehaviour;
     protected hideAdBehaviour = new HideNullBehaviour();
     protected adType: adTypes = "interstitial";
 
     constructor(
         @inject<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK) protected readonly fbInstant: IFBInstantSDK,
-        @inject(FACEBOOK_SERVICE_IDENTIFIERS.preloadBehaviour) private readonly _preloadBehaviour: PreloadBehaviour,
+        @inject(FACEBOOK_SERVICE_IDENTIFIERS.preloadBehaviour) private readonly preloadBehaviour: PreloadBehaviour,
         @inject(FACEBOOK_SERVICE_IDENTIFIERS.showAdInterstitialBehaviour) private readonly showAdInterstitialBehaviour: ShowAdInterstitialBehaviour,
     ) {
         super();

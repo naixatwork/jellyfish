@@ -16,14 +16,14 @@ export abstract class AdBaseService {
     }
 
     protected abstract showBehaviour: IAdShowBehaviour;
-    protected abstract preloadBehaviour: IAdLoadBehaviour;
+    protected abstract loadBehaviour: IAdLoadBehaviour;
     protected abstract hideAdBehaviour: IAdHideBehaviour;
     protected abstract adType: adTypes;
 
     protected abstract preloadAdFunction(adId: string): Promise<IFacebookAd>;
 
     public async preloadAd(adId: string): Promise<void> {
-        await this.preloadBehaviour.preloadAd(this.preloadAdFunction(adId), this.adType)
+        await this.loadBehaviour.preloadAd(this.preloadAdFunction(adId), this.adType)
             .subscribe({
             next: (preloadedAd) => {
                 this.ad = preloadedAd;

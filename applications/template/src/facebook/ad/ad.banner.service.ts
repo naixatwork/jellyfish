@@ -12,7 +12,7 @@ import {IAdLoadBehaviour} from "./ad.loadBehaviour.ts/ad.loadBehaviour.type";
 
 @injectable()
 export class AdBannerService extends AdBaseService {
-    protected override preloadBehaviour = this.loadBannerBehaviour;
+    protected override loadBehaviour = this.loadBannerBehaviour;
     protected override showBehaviour = new ShowNullBehaviour();
     protected override hideAdBehaviour = this.hideBannerBehaviour;
     protected override adType: adTypes = "banner";
