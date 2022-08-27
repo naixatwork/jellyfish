@@ -22,7 +22,7 @@ export class FacebookModule extends ContainerModule {
             bind(FACEBOOK_SERVICE_IDENTIFIERS.showAdAsyncBehaviour).to(ShowAdAsyncBehaviour);
             bind(FACEBOOK_SERVICE_IDENTIFIERS.loadBannerBehaviour).to(LoadBannerBehaviour);
             bind(FACEBOOK_SERVICE_IDENTIFIERS.hideBannerBehaviour).to(HideBannerBehaviour);
-            bind(FACEBOOK_SERVICE_IDENTIFIERS.adRewardedService).to(AdRewardedService);
+            bind(FACEBOOK_SERVICE_IDENTIFIERS.adRewardedSxervice).to(AdRewardedService);
             bind(AdContainerService).toSelf();
             bind(AdInterstitialService).toSelf();
             bind(AdBannerService).toSelf();
