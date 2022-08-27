@@ -1,5 +1,5 @@
 import {inject, injectable} from "inversify";
-import {AdServiceBase} from "./ad.base.service";
+import {AdBaseService} from "./ad.base.service";
 import {ShowNullBehaviour} from "./ad.showBehaviour";
 import {IAdHideBehaviour} from "./ad.hideBehaviour";
 import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "../facebook.type";
@@ -11,7 +11,7 @@ import {adTypes} from "./ad.container.service";
 import {IAdLoadBehaviour} from "./ad.loadBehaviour.ts/ad.loadBehaviour.type";
 
 @injectable()
-export class AdBannerService extends AdServiceBase {
+export class AdBannerService extends AdBaseService {
     protected override preloadBehaviour = this.loadBannerBehaviour;
     protected override showBehaviour = new ShowNullBehaviour();
     protected override hideAdBehaviour = this.hideBannerBehaviour;

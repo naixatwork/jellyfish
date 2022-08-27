@@ -4,10 +4,10 @@ import {IFacebookAd} from "./ad.type";
 import {adTypes} from "./ad.container.service";
 import {IAdLoadBehaviour} from "./ad.loadBehaviour.ts/ad.loadBehaviour.type";
 
-export abstract class AdServiceBase {
+export abstract class AdBaseService {
     private _ad: IFacebookAd;
 
-    public get ad(): AdServiceBase['_ad'] {
+    public get ad(): AdBaseService['_ad'] {
         return this._ad;
     }
 

@@ -1,5 +1,5 @@
 import {inject, injectable} from "inversify";
-import {AdServiceBase} from "./ad.base.service";
+import {AdBaseService} from "./ad.base.service";
 import {UnityService} from "../../unity/unity.service";
 import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "../facebook.type";
 import {PreloadBehaviour} from "./ad.loadBehaviour.ts/ad.preloadBehaviour";
@@ -11,7 +11,7 @@ import {ABR_PLANKTON_NAMES} from "../../unity/unity.types";
 import {adTypes} from "./ad.container.service";
 
 @injectable()
-export class AdInterstitialService extends AdServiceBase {
+export class AdInterstitialService extends AdBaseService {
     protected preloadBehaviour = this._preloadBehaviour;
     protected showBehaviour = this.showAdInterstitialBehaviour;
     protected hideAdBehaviour = new HideNullBehaviour();
