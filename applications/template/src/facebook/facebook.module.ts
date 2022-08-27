@@ -3,12 +3,14 @@ import {FacebookService} from "./facebook.service";
 import {AdContainerService} from "./ad/ad.container.service";
 import {
     AdInterstitialService,
-    PreloadInterstitialBehaviour,
+    // PreloadInterstitialBehaviour,
     ShowAdInterstitialBehaviour
 } from "./ad/ad.interstitial.service";
 import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "./facebook.type";
 import {AdBannerService, HideBannerBehaviour, LoadBannerBehaviour} from "./ad/ad.banner.service";
 import {IFacebookAd} from "./ad/ad.type";
+import {AdRewardedService} from "./ad/ad.rewarded.service";
+import {PreloadBehaviour} from "./ad/ad.preloadBehaviour";
 
 export class FacebookModule extends ContainerModule {
     public constructor() {
@@ -16,10 +18,12 @@ export class FacebookModule extends ContainerModule {
             // todo: provide service identifier for everything
             bind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).to(FBInstantSDKMock);
             bind(FACEBOOK_SERVICE_IDENTIFIERS.facebookService).to(FacebookService);
-            bind(FACEBOOK_SERVICE_IDENTIFIERS.preloadInterstitialBehaviour).to(PreloadInterstitialBehaviour);
+            // bind(FACEBOOK_SERVICE_IDENTIFIERS.preloadInterstitialBehaviour).to(PreloadInterstitialBehaviour);
+            bind(FACEBOOK_SERVICE_IDENTIFIERS.preloadBehaviour).to(PreloadBehaviour);
             bind(FACEBOOK_SERVICE_IDENTIFIERS.showAdInterstitialBehaviour).to(ShowAdInterstitialBehaviour);
             bind(FACEBOOK_SERVICE_IDENTIFIERS.loadBannerBehaviour).to(LoadBannerBehaviour);
             bind(FACEBOOK_SERVICE_IDENTIFIERS.hideBannerBehaviour).to(HideBannerBehaviour);
+            bind(FACEBOOK_SERVICE_IDENTIFIERS.adRewardedService).to(AdRewardedService);
             bind(AdContainerService).toSelf();
             bind(AdInterstitialService).toSelf();
             bind(AdBannerService).toSelf();

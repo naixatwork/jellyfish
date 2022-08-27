@@ -20,11 +20,12 @@ interface IFBInstantSDK {
 
 const FACEBOOK_SERVICE_IDENTIFIERS = {
     facebookService: Symbol("facebookService"),
-    preloadInterstitialBehaviour: Symbol("preloadInterstitialBehaviour"),
+    preloadBehaviour: Symbol("preloadBehaviour"),
     showAdInterstitialBehaviour: Symbol("showAdInterstitialBehaviour"),
     loadBannerBehaviour: Symbol("loadBannerBehaviour"),
     hideBannerBehaviour: Symbol("hideBannerBehaviour"),
     FacebookSDK: Symbol("FacebookSDK"),
+    adRewardedService: Symbol("adRewardedService"),
 };
 
 

@@ -1,5 +1,5 @@
 import {inject, injectable} from "inversify";
-import {AdServiceBase} from "./ad.abstract";
+import {AdServiceBase} from "./ad.base.service";
 import {IAdPreloadBehaviour} from "./ad.preloadBehaviour";
 import {ShowNullBehaviour} from "./ad.showBehaviour";
 import {IAdHideBehaviour} from "./ad.hideBehaviour";
@@ -8,18 +8,25 @@ import {UnityService} from "../../unity/unity.service";
 import {first, from, Observable, tap} from "rxjs";
 import {IFacebookAd} from "./ad.type";
 import {ABR_PLANKTON_NAMES} from "../../unity/unity.types";
+import {adTypes} from "./ad.container.service";
 
 @injectable()
 export class AdBannerService extends AdServiceBase {
-    protected preloadBehaviour = this.loadBannerBehaviour;
-    protected showBehaviour = new ShowNullBehaviour();
-    protected hideAdBehaviour = this.hideBannerBehaviour;
+    protected override preloadBehaviour = this.loadBannerBehaviour;
+    protected override showBehaviour = new ShowNullBehaviour();
+    protected override hideAdBehaviour = this.hideBannerBehaviour;
+    protected override adType: adTypes = "banner";
 
     constructor(
+        @inject(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK) protected readonly fbInstant: IFBInstantSDK,
         @inject(FACEBOOK_SERVICE_IDENTIFIERS.loadBannerBehaviour) private readonly loadBannerBehaviour: LoadBannerBehaviour,
         @inject(FACEBOOK_SERVICE_IDENTIFIERS.hideBannerBehaviour) private readonly hideBannerBehaviour: HideBannerBehaviour
     ) {
         super();
+    }
+
+    protected override preloadAdFunction(adId: string): Promise<IFacebookAd> {
+        return this.fbInstant.loadBannerAdAsync(adId);
     }
 }
 
@@ -31,13 +38,13 @@ export class LoadBannerBehaviour implements IAdPreloadBehaviour {
     ) {
     }
 
-    preloadAd(adId: string): Observable<IFacebookAd> {
+    preloadAd(asyncPreloadFunction: Promise<IFacebookAd>, adType: "banner"): Observable<IFacebookAd> {
         const onAdLoaded = () => {
             const callUnityOnAdLoaded = () => {
                 this.unityService.sendMessage(
                     ABR_PLANKTON_NAMES.planktonGameObject,
                     ABR_PLANKTON_NAMES.onAdLoaded,
-                    "banner"
+                    adType
                 );
             };
             callUnityOnAdLoaded();
@@ -48,14 +55,14 @@ export class LoadBannerBehaviour implements IAdPreloadBehaviour {
                 this.unityService.sendMessage(
                     ABR_PLANKTON_NAMES.planktonGameObject,
                     ABR_PLANKTON_NAMES.onAdFailedToLoad,
-                    "banner"
+                    adType
                 );
             };
             callUnityOnAdFailedToLoad();
             console.error(error);
         };
 
-        return from(this.fbInstant.loadBannerAdAsync(adId))
+        return from(asyncPreloadFunction)
             .pipe(
                 first(),
                 tap({
