@@ -20,10 +20,10 @@ export abstract class AdBaseService {
     protected abstract hideAdBehaviour: IAdHideBehaviour;
     protected abstract adType: adTypes;
 
-    protected abstract preloadAdFunction(adId: string): Promise<IFacebookAd>;
+    protected abstract fbInstantSDKPreloadAdFunction(adId: string): Promise<IFacebookAd>;
 
     public async preloadAd(adId: string): Promise<void> {
-        await this.loadBehaviour.preloadAd(this.preloadAdFunction(adId), this.adType)
+        await this.loadBehaviour.preloadAd(this.fbInstantSDKPreloadAdFunction(adId), this.adType)
             .subscribe({
             next: (preloadedAd) => {
                 this.ad = preloadedAd;

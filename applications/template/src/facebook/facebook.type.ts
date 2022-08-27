@@ -3,7 +3,7 @@ import {IFacebookAd} from "./ad/ad.type";
 const FACEBOOK_SERVICE_IDENTIFIERS = {
     facebookService: Symbol("facebookService"),
     preloadBehaviour: Symbol("preloadBehaviour"),
-    showAdInterstitialBehaviour: Symbol("showAdInterstitialBehaviour"),
+    showAdAsyncBehaviour: Symbol("showAdAsyncBehaviour"),
     loadBannerBehaviour: Symbol("loadBannerBehaviour"),
     hideBannerBehaviour: Symbol("hideBannerBehaviour"),
     FacebookSDK: Symbol("FacebookSDK"),

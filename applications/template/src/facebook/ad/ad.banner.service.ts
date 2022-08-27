@@ -25,7 +25,7 @@ export class AdBannerService extends AdBaseService {
         super();
     }
 
-    protected override preloadAdFunction(adId: string): Promise<IFacebookAd> {
+    protected override fbInstantSDKPreloadAdFunction(adId: string): Promise<IFacebookAd> {
         return this.fbInstant.loadBannerAdAsync(adId);
     }
 }
