@@ -10,7 +10,8 @@ import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "./facebook.type";
 import {AdBannerService, HideBannerBehaviour, LoadBannerBehaviour} from "./ad/ad.banner.service";
 import {IFacebookAd} from "./ad/ad.type";
 import {AdRewardedService} from "./ad/ad.rewarded.service";
-import {PreloadBehaviour} from "./ad/ad.preloadBehaviour";
+import {PreloadBehaviour} from "./ad/ad.loadBehaviour.ts/ad.preloadBehaviour";
+import {LoadNullBehaviour} from "./ad/ad.loadBehaviour.ts/ad.loadNullBehaviour";
 
 export class FacebookModule extends ContainerModule {
     public constructor() {
@@ -20,6 +21,7 @@ export class FacebookModule extends ContainerModule {
             bind(FACEBOOK_SERVICE_IDENTIFIERS.facebookService).to(FacebookService);
             // bind(FACEBOOK_SERVICE_IDENTIFIERS.preloadInterstitialBehaviour).to(PreloadInterstitialBehaviour);
             bind(FACEBOOK_SERVICE_IDENTIFIERS.preloadBehaviour).to(PreloadBehaviour);
+            bind(FACEBOOK_SERVICE_IDENTIFIERS.loadNullBehaviour).to(LoadNullBehaviour);
             bind(FACEBOOK_SERVICE_IDENTIFIERS.showAdInterstitialBehaviour).to(ShowAdInterstitialBehaviour);
             bind(FACEBOOK_SERVICE_IDENTIFIERS.loadBannerBehaviour).to(LoadBannerBehaviour);
             bind(FACEBOOK_SERVICE_IDENTIFIERS.hideBannerBehaviour).to(HideBannerBehaviour);

@@ -1,23 +1,13 @@
-import {FacebookAdMock} from "../facebook.module";
-import {IFacebookAd} from "./ad.type";
-import {first, from, Observable, of, switchMap, tap} from "rxjs";
+import {IFacebookAd} from "../ad.type";
+import {first, from, Observable, switchMap, tap} from "rxjs";
 import {injectable} from "inversify";
-import {UnityService} from "../../unity/unity.service";
-import {ABR_PLANKTON_NAMES} from "../../unity/unity.types";
-import {adTypes} from "./ad.container.service";
-
-export interface IAdPreloadBehaviour {
-    preloadAd(asyncPreloadFunction: Promise<IFacebookAd>, adType: adTypes): Observable<IFacebookAd>;
-}
-
-export class PreloadNullBehaviour implements IAdPreloadBehaviour {
-    preloadAd(asyncPreloadFunction: Promise<IFacebookAd>, adType: adTypes): Observable<IFacebookAd> {
-        return of(new FacebookAdMock());
-    }
-}
+import {UnityService} from "../../../unity/unity.service";
+import {ABR_PLANKTON_NAMES} from "../../../unity/unity.types";
+import {adTypes} from "../ad.container.service";
+import {IAdLoadBehaviour} from "./ad.loadBehaviour.type";
 
 @injectable()
-export class PreloadBehaviour implements IAdPreloadBehaviour {
+export class PreloadBehaviour implements IAdLoadBehaviour {
     constructor(
         private readonly unityService: UnityService
     ) {

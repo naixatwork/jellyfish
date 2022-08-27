@@ -1,6 +1,5 @@
 import {inject, injectable} from "inversify";
 import {AdServiceBase} from "./ad.base.service";
-import {IAdPreloadBehaviour} from "./ad.preloadBehaviour";
 import {ShowNullBehaviour} from "./ad.showBehaviour";
 import {IAdHideBehaviour} from "./ad.hideBehaviour";
 import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "../facebook.type";
@@ -9,6 +8,7 @@ import {first, from, Observable, tap} from "rxjs";
 import {IFacebookAd} from "./ad.type";
 import {ABR_PLANKTON_NAMES} from "../../unity/unity.types";
 import {adTypes} from "./ad.container.service";
+import {IAdLoadBehaviour} from "./ad.loadBehaviour.ts/ad.loadBehaviour.type";
 
 @injectable()
 export class AdBannerService extends AdServiceBase {
@@ -31,7 +31,7 @@ export class AdBannerService extends AdServiceBase {
 }
 
 @injectable()
-export class LoadBannerBehaviour implements IAdPreloadBehaviour {
+export class LoadBannerBehaviour implements IAdLoadBehaviour {
     constructor(
         @inject(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK) protected readonly fbInstant: IFBInstantSDK,
         private readonly unityService: UnityService

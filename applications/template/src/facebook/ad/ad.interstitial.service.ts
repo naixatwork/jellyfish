@@ -2,7 +2,7 @@ import {inject, injectable} from "inversify";
 import {AdServiceBase} from "./ad.base.service";
 import {UnityService} from "../../unity/unity.service";
 import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "../facebook.type";
-import {PreloadBehaviour} from "./ad.preloadBehaviour";
+import {PreloadBehaviour} from "./ad.loadBehaviour.ts/ad.preloadBehaviour";
 import {IAdShowBehaviour} from "./ad.showBehaviour";
 import {HideNullBehaviour} from "./ad.hideBehaviour";
 import {first, from} from "rxjs";
@@ -29,49 +29,6 @@ export class AdInterstitialService extends AdServiceBase {
         return this.fbInstant.getInterstitialAdAsync(adId);
     }
 }
-
-// @injectable()
-// export class PreloadInterstitialBehaviour implements IAdPreloadBehaviour {
-//     constructor(
-//         @inject<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK) protected readonly fbInstant: IFBInstantSDK,
-//         private readonly unityService: UnityService
-//     ) {
-//     }
-//
-//     preloadAd(adId: string): Observable<IFacebookAd> {
-//         const onAdPreloaded = () => {
-//             const callUnityOnAdLoaded = () => {
-//                 this.unityService.sendMessage(
-//                     ABR_PLANKTON_NAMES.planktonGameObject,
-//                     ABR_PLANKTON_NAMES.onAdLoaded,
-//                     "interstitial");
-//             };
-//             callUnityOnAdLoaded();
-//         };
-//
-//         const onAdFailedToPreload = (error: Error) => {
-//             const callUnityOnAdFailedToLoad = () => {
-//                 this.unityService.sendMessage(
-//                     ABR_PLANKTON_NAMES.planktonGameObject,
-//                     ABR_PLANKTON_NAMES.onAdFailedToLoad,
-//                     "interstitial");
-//             };
-//
-//             callUnityOnAdFailedToLoad();
-//             console.error(error);
-//         };
-//
-//         return from(this.fbInstant.getInterstitialAdAsync(adId))
-//             .pipe(
-//                 first(),
-//                 switchMap((interstitialInstance) => interstitialInstance.loadAsync()),
-//                 tap({
-//                     next: onAdPreloaded,
-//                     error: onAdFailedToPreload
-//                 }),
-//             );
-//     }
-// }
 
 @injectable()
 export class ShowAdInterstitialBehaviour implements IAdShowBehaviour {
