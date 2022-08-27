@@ -9,6 +9,7 @@ import {AdRewardedService} from "./ad/ad.rewarded.service";
 import {PreloadBehaviour} from "./ad/ad.loadBehaviour.ts/ad.preloadBehaviour";
 import {LoadNullBehaviour} from "./ad/ad.loadBehaviour.ts/ad.loadNullBehaviour";
 import {ShowAdAsyncBehaviour} from "./ad/ad.showBehaviour/ad.showAsyncBehaviour";
+import {AdRewardedInterstitialService} from "./ad/ad.rewardedInterstitial.service";
 
 export class FacebookModule extends ContainerModule {
     public constructor() {
@@ -22,7 +23,8 @@ export class FacebookModule extends ContainerModule {
             bind(FACEBOOK_SERVICE_IDENTIFIERS.showAdAsyncBehaviour).to(ShowAdAsyncBehaviour);
             bind(FACEBOOK_SERVICE_IDENTIFIERS.loadBannerBehaviour).to(LoadBannerBehaviour);
             bind(FACEBOOK_SERVICE_IDENTIFIERS.hideBannerBehaviour).to(HideBannerBehaviour);
-            bind(FACEBOOK_SERVICE_IDENTIFIERS.adRewardedSxervice).to(AdRewardedService);
+            bind(FACEBOOK_SERVICE_IDENTIFIERS.adRewardedService).to(AdRewardedService);
+            bind(FACEBOOK_SERVICE_IDENTIFIERS.adRewardedInterstitialService).to(AdRewardedInterstitialService);
             bind(AdContainerService).toSelf();
             bind(AdInterstitialService).toSelf();
             bind(AdBannerService).toSelf();
@@ -55,6 +57,10 @@ export class FBInstantSDKMock implements IFBInstantSDK {
     }
 
     getRewardedVideoAsync(adId: string): Promise<IFacebookAd> {
+        return Promise.resolve(new FacebookAdMock());
+    }
+
+    getRewardedInterstitialAsync(adId: string): Promise<IFacebookAd> {
         return Promise.resolve(new FacebookAdMock());
     }
 

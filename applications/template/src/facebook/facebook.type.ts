@@ -5,10 +5,11 @@ const FACEBOOK_SERVICE_IDENTIFIERS = {
     preloadBehaviour: Symbol("preloadBehaviour"),
     showAdAsyncBehaviour: Symbol("showAdAsyncBehaviour"),
     loadBannerBehaviour: Symbol("loadBannerBehaviour"),
+    loadNullBehaviour: Symbol("loadNullBehaviour"),
     hideBannerBehaviour: Symbol("hideBannerBehaviour"),
     FacebookSDK: Symbol("FacebookSDK"),
     adRewardedService: Symbol("adRewardedService"),
-    loadNullBehaviour: Symbol("loadNullBehaviour"),
+    adRewardedInterstitialService: Symbol("adRewardedInterstitialService"),
 };
 
 // https://developers.facebook.com/docs/games/instant-games/sdk/fbinstant7.1
@@ -24,6 +25,8 @@ interface IFBInstantSDK {
     getInterstitialAdAsync(adId: string): Promise<IFacebookAd>;
 
     getRewardedVideoAsync(adId: string): Promise<IFacebookAd>;
+
+    getRewardedInterstitialAsync(adId: string): Promise<IFacebookAd>;
 
     loadBannerAdAsync(adId: string): Promise<IFacebookAd>;
 
