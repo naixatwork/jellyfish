@@ -8,6 +8,7 @@ import {FACEBOOK_SERVICE_IDENTIFIERS} from "../../facebook.type";
 import {IFacebookAd} from "../ad.type";
 import _ from "lodash";
 import {noop} from "rxjs";
+import {adTypes} from "../ad.container.service";
 
 describe("PreloadBehaviour", () => {
     @injectable()
@@ -107,6 +108,25 @@ describe("PreloadBehaviour", () => {
             .subscribe({
                 next: noop,
                 error: onAdPreloadFailed
+            });
+    });
+
+    test("it should send unity messages with adType included", (done) => {
+        const seed: adTypes = "interstitial";
+        const onAdPreload = () => {
+            console.log(UnityInstanceMock.logStack)
+            expect(_.last(UnityInstanceMock.logStack)).toEqual({
+                gameObject: ABR_PLANKTON_NAMES.planktonGameObject,
+                method: ABR_PLANKTON_NAMES.onAdLoaded,
+                value: seed
+            });
+            done();
+        };
+
+        sut.preloadAd(FBInstantSDKTestMock.getMockAdAsync("999"), seed)
+            .subscribe({
+                next: onAdPreload,
+                error: noop
             });
     });
 });

@@ -9,7 +9,7 @@ import {ShowAdAsyncBehaviour} from "./ad.showBehaviour/ad.showAsyncBehaviour";
 
 @injectable()
 export class AdRewardedService extends AdBaseService {
-    protected adType: adTypes = "rewarded";
+    protected _adType: adTypes = "rewarded";
     protected hideAdBehaviour = new HideNullBehaviour();
     protected loadBehaviour = this.preloadBehaviour;
     protected showBehaviour = this.showAdAsyncBehaviour;

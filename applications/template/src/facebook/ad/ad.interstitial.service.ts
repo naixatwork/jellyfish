@@ -12,7 +12,7 @@ export class AdInterstitialService extends AdBaseService {
     protected loadBehaviour = this.preloadBehaviour;
     protected showBehaviour = this.showAdAsyncBehaviour;
     protected hideAdBehaviour = new HideNullBehaviour();
-    protected adType: adTypes = "interstitial";
+    protected _adType: adTypes = "interstitial";
 
     constructor(
         @inject<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK) protected readonly fbInstant: IFBInstantSDK,

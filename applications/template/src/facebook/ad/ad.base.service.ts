@@ -18,17 +18,22 @@ export abstract class AdBaseService {
     protected abstract showBehaviour: IAdShowBehaviour;
     protected abstract loadBehaviour: IAdLoadBehaviour;
     protected abstract hideAdBehaviour: IAdHideBehaviour;
-    protected abstract adType: adTypes;
+    protected abstract _adType: adTypes;
+
+    public adType(): AdBaseService['_adType'] {
+        return this._adType;
+    }
 
     protected abstract fbInstantSDKPreloadAdFunction(adId: string): Promise<IFacebookAd>;
 
+    // todo change this function name to load
     public async preloadAd(adId: string): Promise<void> {
-        await this.loadBehaviour.preloadAd(this.fbInstantSDKPreloadAdFunction(adId), this.adType)
+        await this.loadBehaviour.preloadAd(this.fbInstantSDKPreloadAdFunction(adId), this._adType)
             .subscribe({
-            next: (preloadedAd) => {
-                this.ad = preloadedAd;
-            }
-        });
+                next: (preloadedAd) => {
+                    this.ad = preloadedAd;
+                }
+            });
     }
 
     public showAd(): void {

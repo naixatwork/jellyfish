@@ -9,7 +9,7 @@ import {IFacebookAd} from "./ad.type";
 
 @injectable()
 export class AdRewardedInterstitialService extends AdBaseService {
-    protected adType: adTypes = "rewardedInterstitial";
+    protected _adType: adTypes = "rewardedInterstitial";
     protected hideAdBehaviour = new HideNullBehaviour();
     protected loadBehaviour = this.preloadBehaviour;
     protected showBehaviour = this.showAdAsyncBehaviour;

@@ -15,7 +15,7 @@ export class AdBannerService extends AdBaseService {
     protected override loadBehaviour = this.loadBannerBehaviour;
     protected override showBehaviour = new ShowNullBehaviour();
     protected override hideAdBehaviour = this.hideBannerBehaviour;
-    protected override adType: adTypes = "banner";
+    protected override _adType: adTypes = "banner";
 
     constructor(
         @inject(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK) protected readonly fbInstant: IFBInstantSDK,
