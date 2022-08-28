@@ -22,7 +22,7 @@ export class AdRewardedService extends AdBaseService {
         super();
     }
 
-    protected fbInstantSDKPreloadAdFunction(adId: string): Promise<IFacebookAd> {
+    public fbInstantSDKPreloadAdFunction(adId: string): Promise<IFacebookAd> {
         return this.fbInstant.getRewardedVideoAsync(adId);
     }
 }

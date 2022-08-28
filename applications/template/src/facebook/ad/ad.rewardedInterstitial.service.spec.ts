@@ -37,8 +37,12 @@ describe("AdRewardedInterstitialService", () => {
         UnityInstanceMock.logStack = [];
     });
 
-    test("it should be defined", () => {
+    test("it should be an instance of AdRewardedInterstitialService and defined", () => {
         expect(sut).toBeDefined();
         expect(sut).toBeInstanceOf(AdRewardedInterstitialService);
+    });
+
+    test("it should return getRewardedInterstitialAsync() from fbInstant SDK on fbInstantSDKPreloadAdFunction()", () => {
+        pending();
     });
 });

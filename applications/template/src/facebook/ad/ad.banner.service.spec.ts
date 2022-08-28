@@ -66,8 +66,9 @@ describe("AdBannerService", () => {
         FBInstantSDKTestMock.hasHideBannerAdAsync = false;
     });
 
-    test("it should be defined", () => {
+    test("it should be an instance of AdBannerService and defined", () => {
         expect(sut).toBeDefined();
+        expect(sut).toBeInstanceOf(AdBannerService);
     });
 
     test("it should subscribe to loadBannerAdAsync() from SDK after calling preloadAd()", async () => {

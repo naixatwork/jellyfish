@@ -21,4 +21,8 @@ describe("AdInterstitialService", () => {
     test("it should have interstitial as adType", () => {
        expect(sut.adType()).toEqual("interstitial");
     });
+
+    test("it should return getInterstitialAdAsync() from fbInstant SDK on fbInstantSDKPreloadAdFunction()", () => {
+        pending();
+    });
 });
