@@ -27,11 +27,11 @@ export abstract class AdBaseService {
     protected abstract fbInstantSDKPreloadAdFunction(adId: string): Promise<IFacebookAd>;
 
     // todo change this function name to load
-    public async preloadAd(adId: string): Promise<void> {
+    public async loadAd(adId: string): Promise<void> {
         await this.loadBehaviour.preloadAd(this.fbInstantSDKPreloadAdFunction(adId), this._adType)
             .subscribe({
-                next: (preloadedAd) => {
-                    this.ad = preloadedAd;
+                next: (ad) => {
+                    this.ad = ad;
                 }
             });
     }

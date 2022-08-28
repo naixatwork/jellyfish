@@ -62,7 +62,7 @@ describe("AdBaseService", () => {
     });
 
     test(`it should set loaded Ad instance after calling preloadAd()`, async () => {
-        await sut.preloadAd("999");
+        await sut.loadAd("999");
 
         expect(sut.ad).toBeDefined();
         expect(sut.ad).toBeInstanceOf(FacebookAdMock);

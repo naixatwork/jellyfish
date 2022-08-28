@@ -28,8 +28,8 @@ export class FacebookService {
         console.log(this.fbInstant.getSupportedAPIs());
     }
 
-    public preloadAd(adType: adTypes, adId: string): void {
-        this.adContainerService.preloadAd(adType, adId);
+    public loadAd(adType: adTypes, adId: string): void {
+        this.adContainerService.loadAd(adType, adId);
     }
 
     public showAd(adType: adTypes): void {

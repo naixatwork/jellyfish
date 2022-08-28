@@ -74,7 +74,7 @@ describe("AdBannerService", () => {
         moduleRef.rebind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).to(FBInstantSDKTestMock);
         sut = moduleRef.get(AdBannerService);
 
-        await sut.preloadAd("999");
+        await sut.loadAd("999");
 
         expect(FBInstantSDKTestMock.hasLoadBannerAdAsyncCalled).toBeTruthy();
     });
@@ -83,7 +83,7 @@ describe("AdBannerService", () => {
         moduleRef.rebind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).to(FBInstantSDKTestMock);
         sut = moduleRef.get(AdBannerService);
 
-        await sut.preloadAd("999");
+        await sut.loadAd("999");
 
         expect(_.last(UnityInstanceMock.logStack)).toEqual({
             gameObject: ABR_PLANKTON_NAMES.planktonGameObject,
@@ -96,7 +96,7 @@ describe("AdBannerService", () => {
         moduleRef.rebind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).to(FBInstantSDKTestFailMock);
         sut = moduleRef.get(AdBannerService);
 
-        await sut.preloadAd("999");
+        await sut.loadAd("999");
 
         expect(_.last(UnityInstanceMock.logStack)).toEqual({
             gameObject: ABR_PLANKTON_NAMES.planktonGameObject,
@@ -109,7 +109,7 @@ describe("AdBannerService", () => {
         moduleRef.rebind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).to(FBInstantSDKTestMock);
         sut = moduleRef.get(AdBannerService);
 
-        await sut.preloadAd("999");
+        await sut.loadAd("999");
         await sut.hideAd();
 
         expect(FBInstantSDKTestMock.hasHideBannerAdAsync).toBeTruthy();

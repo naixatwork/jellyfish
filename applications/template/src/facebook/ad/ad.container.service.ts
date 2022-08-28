@@ -17,15 +17,15 @@ export class AdContainerService {
     ) {
     }
 
-    public preloadAd(adType: adTypes, adId: string): void {
+    public loadAd(adType: adTypes, adId: string): void {
         if (adType === "interstitial") {
-            this.adInterstitialService.preloadAd(adId);
+            this.adInterstitialService.loadAd(adId);
         } else if (adType === "rewarded") {
-            this.adRewardedService.preloadAd(adId);
+            this.adRewardedService.loadAd(adId);
         } else if (adType === "rewardedInterstitial") {
-            this.adRewardedInterstitialService.preloadAd(adId);
+            this.adRewardedInterstitialService.loadAd(adId);
         } else if (adType === "banner") {
-            this.adBannerService.preloadAd(adId);
+            this.adBannerService.loadAd(adId);
         } else {
             console.error(`[AdContainerService]: ${adType} adType cannot be preloaded`);
         }

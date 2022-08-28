@@ -18,7 +18,7 @@ mergeInto(LibraryManager.library, {
     },
     preloadAd: function (adType, adId) {
         // @ts-ignore
-        jellyfish.facebook.preloadAd(UTF8ToString(adType), UTF8ToString(adId));
+        jellyfish.facebook.loadAd(UTF8ToString(adType), UTF8ToString(adId));
     }
 });
 

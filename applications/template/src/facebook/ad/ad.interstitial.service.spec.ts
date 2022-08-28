@@ -76,14 +76,14 @@ describe("AdInterstitialService", () => {
         moduleRef.rebind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).to(FBInstantSDKTestMock);
         sut = moduleRef.get(AdInterstitialService);
 
-        await sut.preloadAd("999");
+        await sut.loadAd("999");
         sut.showAd();
 
         expect(TestAdMock.hasShowAsyncCalled).toBeTruthy();
     });
 
     test("it should send OnAdShowed with interstitial as value message to unity if showAd() resolves successfully", async () => {
-        await sut.preloadAd("999");
+        await sut.loadAd("999");
         await sut.showAd();
 
         expect(_.last(UnityInstanceMock.logStack)).toEqual({
@@ -101,7 +101,7 @@ describe("AdInterstitialService", () => {
         moduleRef.rebind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).to(FBInstantSDKFailMock);
         sut = moduleRef.get(AdInterstitialService);
 
-        await sut.preloadAd("999");
+        await sut.loadAd("999");
         await sut.showAd();
 
         expect(sut.ad).toBeUndefined();
@@ -136,7 +136,7 @@ describe("AdInterstitialService", () => {
         moduleRef.rebind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).to(FBInstantSDKTestMock);
         sut = moduleRef.get(AdInterstitialService);
 
-        await sut.preloadAd("999");
+        await sut.loadAd("999");
         await sut.showAd();
 
         expect(sut.ad).toBeDefined();
