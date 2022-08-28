@@ -17,7 +17,6 @@ export class FacebookModule extends ContainerModule {
             // todo: provide service identifier for everything
             bind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).to(FBInstantSDKMock);
             bind(FACEBOOK_SERVICE_IDENTIFIERS.facebookService).to(FacebookService);
-            // bind(FACEBOOK_SERVICE_IDENTIFIERS.preloadInterstitialBehaviour).to(PreloadInterstitialBehaviour);
             bind(FACEBOOK_SERVICE_IDENTIFIERS.preloadBehaviour).to(PreloadBehaviour);
             bind(FACEBOOK_SERVICE_IDENTIFIERS.loadNullBehaviour).to(LoadNullBehaviour);
             bind(FACEBOOK_SERVICE_IDENTIFIERS.showAdAsyncBehaviour).to(ShowAdAsyncBehaviour);

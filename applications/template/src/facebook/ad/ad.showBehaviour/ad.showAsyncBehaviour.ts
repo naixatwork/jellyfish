@@ -5,6 +5,7 @@ import {UnityService} from "../../../unity/unity.service";
 import {IFacebookAd} from "../ad.type";
 import {ABR_PLANKTON_NAMES} from "../../../unity/unity.types";
 import {first, from} from "rxjs";
+import {adTypes} from "../ad.container.service";
 
 @injectable()
 export class ShowAdAsyncBehaviour implements IAdShowBehaviour {
@@ -14,13 +15,13 @@ export class ShowAdAsyncBehaviour implements IAdShowBehaviour {
     ) {
     }
 
-    public showAd(ad: IFacebookAd): void {
+    public showAd(ad: IFacebookAd, adType: adTypes): void {
         const callUnityOnAdShowed = (): void => {
             this.unityService.sendMessage(
                 ABR_PLANKTON_NAMES.planktonGameObject,
-                "OnAdShowed",
+                ABR_PLANKTON_NAMES.onAdShowed,
                 JSON.stringify({
-                    format: "interstitial",
+                    format: adType,
                     network: "facebook",
                     response_id: "0"
                 }));
@@ -29,9 +30,9 @@ export class ShowAdAsyncBehaviour implements IAdShowBehaviour {
         const callUnityOnAdFailedToShow = (): void => {
             this.unityService.sendMessage(
                 ABR_PLANKTON_NAMES.planktonGameObject,
-                "OnAdFailedToShow",
+                ABR_PLANKTON_NAMES.onAdFailedToShow,
                 JSON.stringify({
-                    format: "interstitial",
+                    format: adType,
                     network: "facebook",
                     response_id: "0"
                 }));

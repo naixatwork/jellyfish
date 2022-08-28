@@ -65,7 +65,7 @@ describe("PreloadBehaviour", () => {
         TestAdMock.hasLoadAsyncCalled = false;
     });
 
-    test("it should be defined", () => {
+    test("it should be defined and be an instance of PreloadBehaviour", () => {
         expect(sut).toBeDefined();
         expect(sut).toBeInstanceOf(PreloadBehaviour);
     });
@@ -114,7 +114,6 @@ describe("PreloadBehaviour", () => {
     test("it should send unity messages with adType included", (done) => {
         const seed: adTypes = "interstitial";
         const onAdPreload = () => {
-            console.log(UnityInstanceMock.logStack)
             expect(_.last(UnityInstanceMock.logStack)).toEqual({
                 gameObject: ABR_PLANKTON_NAMES.planktonGameObject,
                 method: ABR_PLANKTON_NAMES.onAdLoaded,

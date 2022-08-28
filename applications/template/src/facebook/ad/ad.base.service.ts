@@ -37,7 +37,7 @@ export abstract class AdBaseService {
     }
 
     public showAd(): void {
-        this.showBehaviour.showAd(this.ad);
+        this.showBehaviour.showAd(this.ad, this.adType());
     }
 
     public hideAd(): void {
