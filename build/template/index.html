@@ -32,7 +32,11 @@
         document.getElementsByTagName('head')[0].appendChild(meta);
     }
 
-    createUnityInstance(document.querySelector("#unity-canvas"), {
+    const onProgress = (value) => {
+        console.log(value)
+    };
+
+    const config = {
         dataUrl: "Build/{{{ DATA_FILENAME }}}",
         frameworkUrl: "Build/{{{ FRAMEWORK_FILENAME }}}",
         #if USE_WASM
@@ -46,11 +50,15 @@
         #endif
         streamingAssetsUrl: "StreamingAssets",
         companyName: {{{ JSON.stringify(COMPANY_NAME) }}},
-    productName: {{{ JSON.stringify(PRODUCT_NAME) }}},
-    productVersion: {{{ JSON.stringify(PRODUCT_VERSION) }}},
-    // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
-    // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
-    }).then((unityInstance) => {
+        productName: {{{ JSON.stringify(PRODUCT_NAME) }}},
+        productVersion: {{{ JSON.stringify(PRODUCT_VERSION) }}},
+    }
+
+    createUnityInstance(
+        document.querySelector("#unity-canvas"),
+        config,
+        onProgress
+    ).then((unityInstance) => {
         jellyfish.$onUnityInitiated.next(unityInstance);
     });
 </script>

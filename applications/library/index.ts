@@ -12,7 +12,7 @@ mergeInto(LibraryManager.library, {
         // @ts-ignore
         jellyfish.facebook.showAd(UTF8ToString(adType));
     },
-    preloadAd: (adType: BufferSource, adId: BufferSource): void => {
+    loadAd: (adType: BufferSource, adId: BufferSource): void => {
         // @ts-ignore
         jellyfish.facebook.loadAd(UTF8ToString(adType), UTF8ToString(adId));
     }

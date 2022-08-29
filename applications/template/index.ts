@@ -24,6 +24,7 @@ export const $onUnityInitiated = new Subject<IUnityInstance>()
 
 $onUnityInitiated.subscribe((unity: IUnityInstance) => {
     container.rebind<IUnityInstance>(UNITY_SERVICE_IDENTIFIERS.unityInstance).toConstantValue(unity);
+    console.log(container.get(UNITY_SERVICE_IDENTIFIERS.unityInstance));
     container.rebind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).toConstantValue(FBInstant);
     facebook = container.get(FACEBOOK_SERVICE_IDENTIFIERS.facebookService);
     unityService = container.get(UnityService);
