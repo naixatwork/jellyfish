@@ -33,7 +33,13 @@
     }
 
     const onProgress = (value) => {
-        console.log(value)
+        try {
+            if (typeof jellyfish !== "undefined") {
+                jellyfish.onUnityLoadProgress$.next(value);
+            }
+        } catch (e) {
+            console.error(e);
+        }
     };
 
     const config = {

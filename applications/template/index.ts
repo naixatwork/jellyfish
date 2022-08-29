@@ -7,7 +7,7 @@ import {FacebookModule} from './src/facebook/facebook.module';
 import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "./src/facebook/facebook.type";
 import {FacebookService} from "./src/facebook/facebook.service";
 import {UnityService} from "./src/unity/unity.service";
-import {first, Subject} from "rxjs";
+import {BehaviorSubject, first, Subject} from "rxjs";
 
 declare let FBInstant: IFBInstantSDK; // comes from Facebook SDK
 
@@ -18,13 +18,20 @@ export let unityService: UnityService;
 
 container.load(new UnityModule());
 container.load(new FacebookModule());
+container.rebind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).toConstantValue(FBInstant);
+facebook = container.get(FACEBOOK_SERVICE_IDENTIFIERS.facebookService);
+
+export const onUnityLoadProgress$ = new BehaviorSubject<number>(0);
+
+onUnityLoadProgress$.subscribe((progress) => {
+    facebook.setLoadingProgress(Math.ceil(progress * 100));
+});
 
 export const $onUnityInitiated = new Subject<IUnityInstance>()
     .pipe(first());
 
 $onUnityInitiated.subscribe((unity: IUnityInstance) => {
     container.rebind<IUnityInstance>(UNITY_SERVICE_IDENTIFIERS.unityInstance).toConstantValue(unity);
-    console.log(container.get(UNITY_SERVICE_IDENTIFIERS.unityInstance));
     container.rebind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).toConstantValue(FBInstant);
     facebook = container.get(FACEBOOK_SERVICE_IDENTIFIERS.facebookService);
     unityService = container.get(UnityService);

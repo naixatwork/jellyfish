@@ -4,20 +4,28 @@ import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "./facebook.type";
 
 @injectable()
 export class FacebookService {
+    private static hasInitialized = false;
+    public static counter = 0;
+
     constructor(
         @inject(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK) private readonly fbInstant: IFBInstantSDK,
         private readonly adContainerService: AdContainerService
     ) {
+        FacebookService.counter++;
+        console.log(FacebookService.counter);
         const afterInitialization = () => {
-            this.setLoadingProgressTo100();
-            this.startGame();
+            FacebookService.hasInitialized = true;
         };
 
-        fbInstant.initializeAsync().then(afterInitialization);
+        if (!FacebookService.hasInitialized)
+            fbInstant.initializeAsync().then(afterInitialization);
     }
 
-    private setLoadingProgressTo100(): void {
-        this.fbInstant.setLoadingProgress(100);
+    public setLoadingProgress(progressPercentage: number) {
+        this.fbInstant.setLoadingProgress(progressPercentage);
+        if (progressPercentage >= 100) {
+            this.startGame();
+        }
     }
 
     private startGame(): void {
