@@ -1,31 +1,38 @@
 import {inject, injectable} from "inversify";
 import {AdContainerService, adTypes} from "./ad/ad.container.service";
 import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "./facebook.type";
+import {concatMap, delay, from, of, timer} from "rxjs";
 
 @injectable()
 export class FacebookService {
-    private static hasInitialized = false;
-    public static counter = 0;
-
     constructor(
         @inject(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK) private readonly fbInstant: IFBInstantSDK,
         private readonly adContainerService: AdContainerService
     ) {
-        FacebookService.counter++;
-        console.log(FacebookService.counter);
         const afterInitialization = () => {
-            FacebookService.hasInitialized = true;
+            this.mockLoadingProgress();
         };
 
-        if (!FacebookService.hasInitialized)
-            fbInstant.initializeAsync().then(afterInitialization);
+        fbInstant.initializeAsync().then(afterInitialization);
     }
 
-    public setLoadingProgress(progressPercentage: number) {
-        this.fbInstant.setLoadingProgress(progressPercentage);
-        if (progressPercentage >= 100) {
-            this.startGame();
-        }
+    private mockLoadingProgress(): void {
+        const progressWithDelay = from([2,13,26,32,56,71,90,100])
+            .pipe(
+                concatMap(progress => of(progress).pipe(delay(100)))
+            );
+
+        progressWithDelay
+            .subscribe({
+                next: (progress) => {
+                    console.log(progress);
+                    this.fbInstant.setLoadingProgress(progress);
+                    if (progress >= 100) {
+                        this.startGame();
+                    }
+                }
+            });
+        // this.fbInstant.setLoadingProgress(100);
     }
 
     private startGame(): void {
