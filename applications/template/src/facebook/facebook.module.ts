@@ -10,6 +10,8 @@ import {PreloadBehaviour} from "./ad/ad.loadBehaviour.ts/ad.preloadBehaviour";
 import {LoadNullBehaviour} from "./ad/ad.loadBehaviour.ts/ad.loadNullBehaviour";
 import {ShowAdAsyncBehaviour} from "./ad/ad.showBehaviour/ad.showAsyncBehaviour";
 import {AdRewardedInterstitialService} from "./ad/ad.rewardedInterstitial.service";
+import {ProgressNullBehaviour} from "./progress/progressNullBehaviour";
+import {ProgressOnUnityLoaderBehaviour} from "./progress/progressOnUnityLoaderBehaviour";
 
 export class FacebookModule extends ContainerModule {
     public constructor() {
@@ -24,6 +26,8 @@ export class FacebookModule extends ContainerModule {
             bind(FACEBOOK_SERVICE_IDENTIFIERS.hideBannerBehaviour).to(HideBannerBehaviour);
             bind(FACEBOOK_SERVICE_IDENTIFIERS.adRewardedService).to(AdRewardedService);
             bind(FACEBOOK_SERVICE_IDENTIFIERS.adRewardedInterstitialService).to(AdRewardedInterstitialService);
+            bind(FACEBOOK_SERVICE_IDENTIFIERS.progressNullBehaviour).to(ProgressNullBehaviour);
+            bind(FACEBOOK_SERVICE_IDENTIFIERS.progressOnUnityLoaderBehaviour).to(ProgressOnUnityLoaderBehaviour);
             bind(AdContainerService).toSelf();
             bind(AdInterstitialService).toSelf();
             bind(AdBannerService).toSelf();

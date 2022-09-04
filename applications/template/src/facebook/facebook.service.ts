@@ -1,40 +1,35 @@
 import {inject, injectable} from "inversify";
 import {AdContainerService, adTypes} from "./ad/ad.container.service";
 import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "./facebook.type";
-import {concatMap, delay, from, of} from "rxjs";
+import {IProgressBehaviour} from "./progress/progressBehaviour.type";
+import {ProgressNullBehaviour} from "./progress/progressNullBehaviour";
+import {ProgressOnUnityLoaderBehaviour} from "./progress/progressOnUnityLoaderBehaviour";
 
 @injectable()
 export class FacebookService {
+    public static initiated = 0;
+
+    private progressBehaviour: IProgressBehaviour = new ProgressNullBehaviour();
+
     constructor(
         @inject(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK) private readonly fbInstant: IFBInstantSDK,
-        private readonly adContainerService: AdContainerService
+        @inject(FACEBOOK_SERVICE_IDENTIFIERS.progressOnUnityLoaderBehaviour) private readonly progressOnUnityLoaderBehaviour: ProgressOnUnityLoaderBehaviour,
+        private readonly adContainerService: AdContainerService,
     ) {
-        const afterInitialization = () => {
-            this.mockLoadingProgress();
+        FacebookService.initiated++;
+        console.log(`[FacebookService]: ${FacebookService.initiated}`);
+        const changeProgressBehaviour = () => {
+            this.progressBehaviour = this.progressOnUnityLoaderBehaviour;
         };
 
-        fbInstant.initializeAsync().then(afterInitialization);
+        fbInstant.initializeAsync().then(changeProgressBehaviour);
     }
 
-    private mockLoadingProgress(): void {
-        const progressWithDelay = from([2,13,26,32,56,71,90,100])
-            .pipe(
-                concatMap(progress => of(progress).pipe(delay(100)))
-            );
-
-        progressWithDelay
-            .subscribe({
-                next: (progress) => {
-                    console.log(progress);
-                    this.fbInstant.setLoadingProgress(progress);
-                    if (progress >= 100) {
-                        this.startGame();
-                    }
-                }
-            });
+    public setLoadProgress(progress: number): void {
+        this.progressBehaviour.setProgress(progress);
     }
 
-    private startGame(): void {
+    public startGame(): void {
         this.fbInstant.startGameAsync().then();
     }
 
