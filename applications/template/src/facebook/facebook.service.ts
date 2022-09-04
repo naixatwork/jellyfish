@@ -1,7 +1,7 @@
 import {inject, injectable} from "inversify";
 import {AdContainerService, adTypes} from "./ad/ad.container.service";
 import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "./facebook.type";
-import {concatMap, delay, from, of, timer} from "rxjs";
+import {concatMap, delay, from, of} from "rxjs";
 
 @injectable()
 export class FacebookService {
@@ -32,7 +32,6 @@ export class FacebookService {
                     }
                 }
             });
-        // this.fbInstant.setLoadingProgress(100);
     }
 
     private startGame(): void {

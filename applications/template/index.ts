@@ -24,7 +24,7 @@ facebook = container.get(FACEBOOK_SERVICE_IDENTIFIERS.facebookService);
 export const onUnityLoadProgress$ = new BehaviorSubject<number>(0);
 
 onUnityLoadProgress$.subscribe((progress) => {
-    facebook.setLoadingProgress(Math.ceil(progress * 100));
+    // facebook.setLoadingProgress(Math.ceil(progress * 100));
 });
 
 export const $onUnityInitiated = new Subject<IUnityInstance>()
