@@ -7,8 +7,7 @@ import {ProgressOnUnityLoaderBehaviour} from "./progress/progressOnUnityLoaderBe
 
 @injectable()
 export class FacebookService {
-    public static initiated = 0;
-
+    // todo maybe implement aa queue for jobs such as loader
     private progressBehaviour: IProgressBehaviour = new ProgressNullBehaviour();
 
     constructor(
@@ -16,10 +15,7 @@ export class FacebookService {
         @inject(FACEBOOK_SERVICE_IDENTIFIERS.progressOnUnityLoaderBehaviour) private readonly progressOnUnityLoaderBehaviour: ProgressOnUnityLoaderBehaviour,
         private readonly adContainerService: AdContainerService,
     ) {
-        FacebookService.initiated++;
-        console.log(`[FacebookService]: ${FacebookService.initiated}`);
         const changeProgressBehaviour = () => {
-            console.log('changeProgressBehaviour');
             this.progressBehaviour = this.progressOnUnityLoaderBehaviour;
         };
 

@@ -66,6 +66,7 @@ describe("ShowAdAsyncBehaviour", () => {
     });
 
     test("it should send OnAdShowed message to unity if showAd() resolves successfully", async () => {
+        // todo: bloated test
         await sut.showAd(new TestAdMock(), "interstitial");
         expect(_.last(UnityInstanceMock.logStack)).toEqual({
             gameObject: ABR_PLANKTON_NAMES.planktonGameObject,

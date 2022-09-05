@@ -81,6 +81,7 @@ describe("PreloadBehaviour", () => {
     });
 
     test("it should send OnAdLoaded message to unity if preloadAd() resolves successfully", (done) => {
+        // todo: bloated test
         const onAdPreload = () => {
             expect(_.last(UnityInstanceMock.logStack)).toEqual({
                 gameObject: ABR_PLANKTON_NAMES.planktonGameObject,

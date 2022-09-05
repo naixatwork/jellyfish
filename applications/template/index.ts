@@ -5,7 +5,7 @@ import {IUnityInstance, UNITY_SERVICE_IDENTIFIERS} from "./src/unity/unity.types
 import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "./src/facebook/facebook.type";
 import {FacebookService} from "./src/facebook/facebook.service";
 import {UnityService} from "./src/unity/unity.service";
-import {BehaviorSubject, Subject} from "rxjs";
+import {BehaviorSubject, first, Subject} from "rxjs";
 import {FacebookModule} from "./src/facebook/facebook.module";
 import {UnityModule} from "./src/unity/unity.module";
 import {SendMessageUnityBehaviour} from "./src/unity/sendMessageBehaviour/sendMessageUnityBehaviour";
@@ -27,9 +27,11 @@ onUnityLoadProgress$.subscribe((progress) => {
     facebook.setLoadProgress(progress);
 });
 
+// todo: this should also wait for  FacebookService -> fbInstant.initializeAsync().then()
 export const onUnityInitiated$ = new Subject<IUnityInstance>()
-    .pipe();
+    .pipe(first());
 
+// todo: clean code
 onUnityInitiated$.subscribe((unityInstance: IUnityInstance) => {
     unityService.changeSendMessageBehaviour(new SendMessageUnityBehaviour(unityInstance));
     facebook.setLoadProgress(1.0);
