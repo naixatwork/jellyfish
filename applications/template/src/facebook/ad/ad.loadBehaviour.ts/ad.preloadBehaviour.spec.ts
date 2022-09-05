@@ -9,6 +9,8 @@ import {IFacebookAd} from "../ad.type";
 import _ from "lodash";
 import {noop} from "rxjs";
 import {adTypes} from "../ad.container.service";
+import {UnityService} from "../../../unity/unity.service";
+import {SendMessageUnityBehaviour} from "../../../unity/sendMessageBehaviour/sendMessageUnityBehaviour";
 
 describe("PreloadBehaviour", () => {
     @injectable()
@@ -56,6 +58,8 @@ describe("PreloadBehaviour", () => {
 
     beforeEach(() => {
         moduleRef = createTestingModule(FacebookModule, UnityModule);
+        const unityService = moduleRef.get<UnityService>(UNITY_SERVICE_IDENTIFIERS.unityService);
+        unityService.changeSendMessageBehaviour(new SendMessageUnityBehaviour(new UnityInstanceMock()));
         sut = moduleRef.get(FACEBOOK_SERVICE_IDENTIFIERS.preloadBehaviour);
     });
 

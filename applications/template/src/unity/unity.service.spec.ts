@@ -1,16 +1,7 @@
 import {UnityService} from "./unity.service";
 import {createTestingModule} from "../shared/create-testing-module.function";
 import {UnityModule} from "./unity.module";
-import {IUnityInstance, UNITY_SERVICE_IDENTIFIERS} from "./unity.types";
-
-class UnityInstanceMock implements IUnityInstance {
-    public static hasBeenCalled = false;
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    SendMessage(gameObject: string, method: string, value?: string): void {
-        UnityInstanceMock.hasBeenCalled = true;
-    }
-}
+import {UNITY_SERVICE_IDENTIFIERS} from "./unity.types";
 
 describe("unity.service", () => {
     let sut: UnityService;
