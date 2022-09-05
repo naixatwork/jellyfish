@@ -11,7 +11,8 @@ export const ABR_PLANKTON_NAMES = {
 };
 
 const UNITY_SERVICE_IDENTIFIERS = {
-    unityInstance: Symbol.for("unityInstance"),
+    unityInstance: Symbol("unityInstance"),
+    unityService: Symbol("unityService"),
 };
 
 export {IUnityInstance, UNITY_SERVICE_IDENTIFIERS};

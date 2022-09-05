@@ -16,8 +16,7 @@ export const container = new Container({skipBaseClassChecks: true});
 export let facebook: FacebookService;
 export let unityService: UnityService;
 
-container.load(new UnityModule());
-container.load(new FacebookModule());
+container.load(new UnityModule(), new FacebookModule());
 container.rebind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).toConstantValue(FBInstant);
 // eslint-disable-next-line prefer-const
 facebook = container.get(FACEBOOK_SERVICE_IDENTIFIERS.facebookService);
@@ -33,10 +32,7 @@ export const $onUnityInitiated = new Subject<IUnityInstance>()
 
 $onUnityInitiated.subscribe((unity: IUnityInstance) => {
     container.rebind<IUnityInstance>(UNITY_SERVICE_IDENTIFIERS.unityInstance).toConstantValue(unity);
-    container.rebind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).toConstantValue(FBInstant);
-    container.rebind(FACEBOOK_SERVICE_IDENTIFIERS.facebookService).to(FacebookService).inSingletonScope();
-    // facebook = container.get(FACEBOOK_SERVICE_IDENTIFIERS.facebookService);
-    unityService = container.get(UnityService);
+    unityService = container.get(UNITY_SERVICE_IDENTIFIERS.unityService);
     facebook.setLoadProgress(1.0);
     facebook.startGame();
 });
