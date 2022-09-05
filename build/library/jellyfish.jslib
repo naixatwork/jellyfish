@@ -17,7 +17,7 @@ var jellyfish;
   \***************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\n// @ts-ignore\nmergeInto(LibraryManager.library, {\n    showSupportedAPIs: function () {\n        jellyfish.facebook.logSupportedAPIs();\n    },\n    showAd: function (adType) {\n        // @ts-ignore\n        jellyfish.facebook.showAd(UTF8ToString(adType));\n    },\n    loadAd: function (adType, adId) {\n        // @ts-ignore\n        jellyfish.facebook.loadAd(UTF8ToString(adType), UTF8ToString(adId));\n    }\n});\n\n\n//# sourceURL=webpack://jellyfish/./applications/library/index.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\n// @ts-ignore\nmergeInto(LibraryManager.library, {\n    showSupportedAPIs: function () {\n        jellyfish.facebook.logSupportedAPIs();\n    },\n    loadAd: function (adType, adId) {\n        // @ts-ignore\n        jellyfish.facebook.loadAd(UTF8ToString(adType), UTF8ToString(adId));\n    },\n    showAd: function (adType) {\n        // @ts-ignore\n        jellyfish.facebook.showAd(UTF8ToString(adType));\n    },\n    hideAd: function (adType) {\n        // @ts-ignore\n        jellyfish.facebook.hideAd(UTF8ToString(adType));\n    }\n});\n\n\n//# sourceURL=webpack://jellyfish/./applications/library/index.ts?");
 
 /***/ })
 

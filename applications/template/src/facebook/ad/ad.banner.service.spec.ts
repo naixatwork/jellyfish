@@ -6,8 +6,10 @@ import {UnityModule} from "../../unity/unity.module";
 import {ABR_PLANKTON_NAMES, IUnityInstance, UNITY_SERVICE_IDENTIFIERS} from "../../unity/unity.types";
 import {IFacebookAd} from "./ad.type";
 import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "../facebook.type";
-import Container = interfaces.Container;
 import _ from "lodash";
+import Container = interfaces.Container;
+import {UnityService} from "../../unity/unity.service";
+import {SendMessageUnityBehaviour} from "../../unity/sendMessageBehaviour/sendMessageUnityBehaviour";
 
 describe("AdBannerService", () => {
     let sut: AdBannerService;
@@ -57,7 +59,8 @@ describe("AdBannerService", () => {
 
     beforeEach(() => {
         moduleRef = createTestingModule(FacebookModule, UnityModule);
-        moduleRef.rebind(UNITY_SERVICE_IDENTIFIERS.unityInstance).to(UnityInstanceMock);
+        const unityService = moduleRef.get<UnityService>(UNITY_SERVICE_IDENTIFIERS.unityService);
+        unityService.changeSendMessageBehaviour(new SendMessageUnityBehaviour(new UnityInstanceMock()));
         sut = moduleRef.get(AdBannerService);
     });
 

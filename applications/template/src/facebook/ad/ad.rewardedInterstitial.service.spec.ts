@@ -29,7 +29,6 @@ describe("AdRewardedInterstitialService", () => {
 
     beforeEach(() => {
         moduleRef = createTestingModule(FacebookModule, UnityModule);
-        moduleRef.rebind(UNITY_SERVICE_IDENTIFIERS.unityInstance).to(UnityInstanceMock);
         sut = moduleRef.get(FACEBOOK_SERVICE_IDENTIFIERS.adRewardedInterstitialService);
     });
 

@@ -10,6 +10,8 @@ const FACEBOOK_SERVICE_IDENTIFIERS = {
     FacebookSDK: Symbol("FacebookSDK"),
     adRewardedService: Symbol("adRewardedService"),
     adRewardedInterstitialService: Symbol("adRewardedInterstitialService"),
+    progressNullBehaviour: Symbol("progressNullBehaviour"),
+    progressOnUnityLoaderBehaviour: Symbol("progressOnUnityLoaderBehaviour")
 };
 
 // https://developers.facebook.com/docs/games/instant-games/sdk/fbinstant7.1

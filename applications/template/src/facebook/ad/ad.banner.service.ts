@@ -5,7 +5,7 @@ import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "../facebook.type";
 import {UnityService} from "../../unity/unity.service";
 import {first, from, Observable, tap} from "rxjs";
 import {IFacebookAd} from "./ad.type";
-import {ABR_PLANKTON_NAMES} from "../../unity/unity.types";
+import {ABR_PLANKTON_NAMES, UNITY_SERVICE_IDENTIFIERS} from "../../unity/unity.types";
 import {adTypes} from "./ad.container.service";
 import {IAdLoadBehaviour} from "./ad.loadBehaviour.ts/ad.loadBehaviour.type";
 import {ShowNullBehaviour} from "./ad.showBehaviour/ad.showNullBehaviour";
@@ -34,7 +34,7 @@ export class AdBannerService extends AdBaseService {
 export class LoadBannerBehaviour implements IAdLoadBehaviour {
     constructor(
         @inject(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK) protected readonly fbInstant: IFBInstantSDK,
-        private readonly unityService: UnityService
+        @inject(UNITY_SERVICE_IDENTIFIERS.unityService) private readonly unityService: UnityService
     ) {
     }
 

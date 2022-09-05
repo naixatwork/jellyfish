@@ -47,7 +47,6 @@ describe("AdBaseService", () => {
 
     beforeEach(() => {
         moduleRef = createTestingModule(FacebookModule, UnityModule);
-        moduleRef.rebind(UNITY_SERVICE_IDENTIFIERS.unityInstance).to(UnityInstanceMock);
         moduleRef.bind(AdMockService).toSelf();
         sut = moduleRef.get(AdMockService);
     });

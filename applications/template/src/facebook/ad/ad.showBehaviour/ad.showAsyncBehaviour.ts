@@ -3,7 +3,7 @@ import {IAdShowBehaviour} from "./ad.showBehaviour.type";
 import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "../../facebook.type";
 import {UnityService} from "../../../unity/unity.service";
 import {IFacebookAd} from "../ad.type";
-import {ABR_PLANKTON_NAMES} from "../../../unity/unity.types";
+import {ABR_PLANKTON_NAMES, UNITY_SERVICE_IDENTIFIERS} from "../../../unity/unity.types";
 import {first, from} from "rxjs";
 import {adTypes} from "../ad.container.service";
 
@@ -11,7 +11,7 @@ import {adTypes} from "../ad.container.service";
 export class ShowAdAsyncBehaviour implements IAdShowBehaviour {
     constructor(
         @inject(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK) protected readonly fbInstant: IFBInstantSDK,
-        @inject<UnityService>(UnityService) private readonly unityService: UnityService
+        @inject(UNITY_SERVICE_IDENTIFIERS.unityService) private readonly unityService: UnityService
     ) {
     }
 

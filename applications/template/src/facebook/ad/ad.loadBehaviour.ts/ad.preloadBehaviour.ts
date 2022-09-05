@@ -1,15 +1,15 @@
 import {IFacebookAd} from "../ad.type";
 import {first, from, Observable, switchMap, tap} from "rxjs";
-import {injectable} from "inversify";
+import {inject, injectable} from "inversify";
 import {UnityService} from "../../../unity/unity.service";
-import {ABR_PLANKTON_NAMES} from "../../../unity/unity.types";
+import {ABR_PLANKTON_NAMES, UNITY_SERVICE_IDENTIFIERS} from "../../../unity/unity.types";
 import {adTypes} from "../ad.container.service";
 import {IAdLoadBehaviour} from "./ad.loadBehaviour.type";
 
 @injectable()
 export class PreloadBehaviour implements IAdLoadBehaviour {
     constructor(
-        private readonly unityService: UnityService
+        @inject(UNITY_SERVICE_IDENTIFIERS.unityService) private readonly unityService: UnityService
     ) {
     }
 
