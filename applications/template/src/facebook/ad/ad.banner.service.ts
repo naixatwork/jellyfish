@@ -1,4 +1,4 @@
-import {inject, injectable, optional} from "inversify";
+import {inject, injectable} from "inversify";
 import {AdBaseService} from "./ad.base.service";
 import {IAdHideBehaviour} from "./ad.hideBehaviour";
 import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "../facebook.type";
