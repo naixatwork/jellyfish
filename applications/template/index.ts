@@ -1,25 +1,24 @@
 import "reflect-metadata";
 import './fbapp-config.json';
 import {Container} from "inversify";
-import {UnityModule} from "./src/unity/unity.module";
 import {IUnityInstance, UNITY_SERVICE_IDENTIFIERS} from "./src/unity/unity.types";
-import {FacebookModule} from './src/facebook/facebook.module';
 import {FACEBOOK_SERVICE_IDENTIFIERS, IFBInstantSDK} from "./src/facebook/facebook.type";
 import {FacebookService} from "./src/facebook/facebook.service";
 import {UnityService} from "./src/unity/unity.service";
-import {BehaviorSubject, first, Subject} from "rxjs";
+import {BehaviorSubject, Subject} from "rxjs";
+import {FacebookModule} from "./src/facebook/facebook.module";
+import {UnityModule} from "./src/unity/unity.module";
 
-declare let FBInstant: IFBInstantSDK; // comes from Facebook SDK
+declare let FBInstant: IFBInstantSDK; // comes from facebook instant SDK
 
 // todo: create app.module.ts and move the container creating logic there
 export const container = new Container({skipBaseClassChecks: true});
-export let facebook: FacebookService;
-export let unityService: UnityService;
 
 container.load(new UnityModule(), new FacebookModule());
 container.rebind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).toConstantValue(FBInstant);
 // eslint-disable-next-line prefer-const
-facebook = container.get(FACEBOOK_SERVICE_IDENTIFIERS.facebookService);
+export const facebook = container.get<FacebookService>(FACEBOOK_SERVICE_IDENTIFIERS.facebookService);
+export const unityService = container.get<UnityService>(UNITY_SERVICE_IDENTIFIERS.unityService);
 
 export const onUnityLoadProgress$ = new BehaviorSubject<number>(0);
 
@@ -27,12 +26,11 @@ onUnityLoadProgress$.subscribe((progress) => {
     facebook.setLoadProgress(progress);
 });
 
-export const $onUnityInitiated = new Subject<IUnityInstance>()
-    .pipe(first());
+export const onUnityInitiated$ = new Subject<IUnityInstance>()
+    .pipe();
 
-$onUnityInitiated.subscribe((unity: IUnityInstance) => {
-    container.rebind<IUnityInstance>(UNITY_SERVICE_IDENTIFIERS.unityInstance).toConstantValue(unity);
-    unityService = container.get(UNITY_SERVICE_IDENTIFIERS.unityService);
+onUnityInitiated$.subscribe((unityInstance: IUnityInstance) => {
+    unityService.changeSendMessageBehaviour(unityInstance);
     facebook.setLoadProgress(1.0);
     facebook.startGame();
 });

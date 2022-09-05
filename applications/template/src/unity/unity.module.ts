@@ -12,7 +12,6 @@ export class UnityModule extends ContainerModule {
     public constructor() {
         super(bind => {
             bind(UNITY_SERVICE_IDENTIFIERS.unityService).to(UnityService).inSingletonScope();
-            // todo: create a symbol for this serviceIdentifier
             bind(UNITY_SERVICE_IDENTIFIERS.unityInstance).toConstantValue(new UnityInstanceMock());
         });
     }

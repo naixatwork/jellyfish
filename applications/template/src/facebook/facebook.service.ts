@@ -19,6 +19,7 @@ export class FacebookService {
         FacebookService.initiated++;
         console.log(`[FacebookService]: ${FacebookService.initiated}`);
         const changeProgressBehaviour = () => {
+            console.log('changeProgressBehaviour');
             this.progressBehaviour = this.progressOnUnityLoaderBehaviour;
         };
 

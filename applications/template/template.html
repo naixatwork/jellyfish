@@ -65,7 +65,7 @@
         config,
         onProgress
     ).then((unityInstance) => {
-        jellyfish.$onUnityInitiated.next(unityInstance);
+        jellyfish.onUnityInitiated$.next(unityInstance);
     });
 </script>
 </body>

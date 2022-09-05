@@ -18,7 +18,7 @@ describe("unity.service", () => {
     beforeEach(() => {
         const moduleRef = createTestingModule(UnityModule);
         moduleRef.rebind<IUnityInstance>(UNITY_SERVICE_IDENTIFIERS.unityInstance).toConstantValue(new UnityInstanceMock());
-        sut = moduleRef.get(UnityService);
+        sut = moduleRef.get(UNITY_SERVICE_IDENTIFIERS.unityService);
     });
 
     test("it should be defined", () => {
