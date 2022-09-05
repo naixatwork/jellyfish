@@ -1,5 +1,5 @@
 import {injectable, interfaces} from "inversify";
-import {ABR_PLANKTON_NAMES, IUnityInstance, UNITY_SERVICE_IDENTIFIERS} from "../../../unity/unity.types";
+import {ABR_PLANKTON_NAMES, IUnityInstance} from "../../../unity/unity.types";
 import {ShowAdAsyncBehaviour} from "./ad.showAsyncBehaviour";
 import {createTestingModule} from "../../../shared/create-testing-module.function";
 import {FacebookAdMock, FacebookModule} from "../../facebook.module";
@@ -7,8 +7,8 @@ import {UnityModule} from "../../../unity/unity.module";
 import {FACEBOOK_SERVICE_IDENTIFIERS} from "../../facebook.type";
 import {IFacebookAd} from "../ad.type";
 import _ from "lodash";
-import Container = interfaces.Container;
 import {adTypes} from "../ad.container.service";
+import Container = interfaces.Container;
 
 describe("ShowAdAsyncBehaviour", () => {
     @injectable()
@@ -42,7 +42,6 @@ describe("ShowAdAsyncBehaviour", () => {
 
     beforeEach(() => {
         moduleRef = createTestingModule(FacebookModule, UnityModule);
-        moduleRef.rebind(UNITY_SERVICE_IDENTIFIERS.unityInstance).to(UnityInstanceMock);
         sut = moduleRef.get(FACEBOOK_SERVICE_IDENTIFIERS.showAdAsyncBehaviour);
     });
 

@@ -17,16 +17,10 @@ describe("unity.service", () => {
 
     beforeEach(() => {
         const moduleRef = createTestingModule(UnityModule);
-        moduleRef.rebind<IUnityInstance>(UNITY_SERVICE_IDENTIFIERS.unityInstance).toConstantValue(new UnityInstanceMock());
         sut = moduleRef.get(UNITY_SERVICE_IDENTIFIERS.unityService);
     });
 
     test("it should be defined", () => {
         expect(sut).toBeDefined();
-    });
-
-    test("it should call UnityInstance's SendMessage method", () => {
-        sut.sendMessage("test", "test", "test");
-        expect(UnityInstanceMock.hasBeenCalled).toBeTruthy();
     });
 });
