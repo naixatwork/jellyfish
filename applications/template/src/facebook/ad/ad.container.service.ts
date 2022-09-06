@@ -4,11 +4,19 @@ import {AdBannerService} from "./ad.banner.service";
 import {FACEBOOK_SERVICE_IDENTIFIERS} from "../facebook.type";
 import {AdRewardedService} from "./ad.rewarded.service";
 import {AdRewardedInterstitialService} from "./ad.rewardedInterstitial.service";
+import {AdBaseService} from "./ad.base.service";
 
 export type adTypes = "interstitial" | "banner" | "rewarded" | "rewardedInterstitial";
 
 @injectable()
 export class AdContainerService {
+    private readonly ads: Record<adTypes, AdBaseService> = {
+        "banner": this.adBannerService,
+        "interstitial": this.adInterstitialService,
+        "rewarded": this.adRewardedService,
+        "rewardedInterstitial": this.adRewardedInterstitialService
+    };
+
     constructor(
         private readonly adInterstitialService: AdInterstitialService,
         private readonly adBannerService: AdBannerService,
@@ -17,45 +25,30 @@ export class AdContainerService {
     ) {
     }
 
-    public loadAd(adType: adTypes, adId: string): void {
-        if (adType === "interstitial") {
-            this.adInterstitialService.loadAd(adId);
-        } else if (adType === "rewarded") {
-            this.adRewardedService.loadAd(adId);
-        } else if (adType === "rewardedInterstitial") {
-            this.adRewardedInterstitialService.loadAd(adId);
-        } else if (adType === "banner") {
-            this.adBannerService.loadAd(adId);
-        } else {
+    private doesAdTypeExistInAds(adType: adTypes): boolean {
+        const showErrorAndReturnFalseIfAdTypeDoesntExist = () => {
             console.error(`[AdContainerService]: ${adType} adType cannot be preloaded`);
+            return false;
+        };
+
+        return this.ads[adType] instanceof AdBaseService || showErrorAndReturnFalseIfAdTypeDoesntExist();
+    }
+
+    public loadAd(adType: adTypes, adId: string): void {
+        if (this.doesAdTypeExistInAds(adType)) {
+            this.ads[adType].loadAd(adId).then();
         }
     }
 
     public showAd(adType: adTypes): void {
-        if (adType === "interstitial") {
-            this.adInterstitialService.showAd();
-        } else if (adType === "rewarded") {
-            this.adRewardedService.showAd();
-        } else if (adType === "rewardedInterstitial") {
-            this.adRewardedInterstitialService.showAd();
-        } else if (adType === "banner") {
-            this.adBannerService.showAd();
-        } else {
-            console.error(`[AdContainerService]: ${adType} adType cannot be shown`);
+        if (this.doesAdTypeExistInAds(adType)) {
+            this.ads[adType].showAd();
         }
     }
 
     public hideAd(adType: adTypes): void {
-        if (adType === "interstitial") {
-            this.adInterstitialService.hideAd();
-        } else if (adType === "rewarded") {
-            this.adRewardedService.hideAd();
-        } else if (adType === "rewardedInterstitial") {
-            this.adRewardedInterstitialService.hideAd();
-        } else if (adType === "banner") {
-            this.adBannerService.hideAd();
-        } else {
-            console.error(`[AdContainerService]: ${adType} adType cannot be hidden`);
+        if (this.doesAdTypeExistInAds(adType)) {
+            this.ads[adType].hideAd();
         }
     }
 }
