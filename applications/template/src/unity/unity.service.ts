@@ -1,5 +1,4 @@
 import {injectable} from "inversify";
-import {IUnityInstance} from "./unity.types";
 import {SendMessageNullBehaviour} from "./sendMessageBehaviour/sendMessageNullBehaviour";
 import {ISendMessageBehaviour} from "./sendMessageBehaviour/sendMessageBehaviour.type";
 

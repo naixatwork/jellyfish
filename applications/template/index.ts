@@ -17,7 +17,6 @@ export const container = new Container({skipBaseClassChecks: true});
 
 container.load(new UnityModule(), new FacebookModule());
 container.rebind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).toConstantValue(FBInstant);
-// eslint-disable-next-line prefer-const
 export const facebook = container.get<FacebookService>(FACEBOOK_SERVICE_IDENTIFIERS.facebookService);
 export const unityService = container.get<UnityService>(UNITY_SERVICE_IDENTIFIERS.unityService);
 
