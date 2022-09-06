@@ -16,7 +16,7 @@ export class ShowAdAsyncBehaviour implements IAdShowBehaviour {
     }
 
     public showAd(ad: IFacebookAd, adType: adTypes): void {
-        const callUnityOnAdShowed = (): void => {
+        const sendMessageOnAdShowed = (): void => {
             this.unityService.sendMessage(
                 ABR_PLANKTON_NAMES.planktonGameObject,
                 ABR_PLANKTON_NAMES.onAdShowed,
@@ -27,7 +27,7 @@ export class ShowAdAsyncBehaviour implements IAdShowBehaviour {
                 }));
         };
 
-        const callUnityOnAdFailedToShow = (): void => {
+        const sendMessageOnAdFailedToShow = (): void => {
             this.unityService.sendMessage(
                 ABR_PLANKTON_NAMES.planktonGameObject,
                 ABR_PLANKTON_NAMES.onAdFailedToShow,
@@ -39,7 +39,7 @@ export class ShowAdAsyncBehaviour implements IAdShowBehaviour {
         };
 
         if (!ad) {
-            callUnityOnAdFailedToShow();
+            sendMessageOnAdFailedToShow();
             return;
         }
 
@@ -48,8 +48,8 @@ export class ShowAdAsyncBehaviour implements IAdShowBehaviour {
                 first()
             )
             .subscribe({
-                next: callUnityOnAdShowed,
-                error: callUnityOnAdFailedToShow
+                next: sendMessageOnAdShowed,
+                error: sendMessageOnAdFailedToShow
             });
     }
 }
