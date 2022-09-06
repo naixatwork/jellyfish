@@ -14,5 +14,5 @@ describe("FacebookService", () => {
 
     test("it should be defined", () => {
         expect(sut).toBeDefined();
-    })
-})
+    });
+});

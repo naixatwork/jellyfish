@@ -9,7 +9,6 @@ const config = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: path.resolve(__dirname, './template.html'),
-            minify: "false",
         }),
         new BundleAnalyzerPlugin({
             analyzerMode: 'disabled'
