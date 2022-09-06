@@ -7,8 +7,13 @@ import {ProgressOnUnityLoaderBehaviour} from "./progress/progressOnUnityLoaderBe
 
 @injectable()
 export class FacebookService {
-    // todo maybe implement aa queue for jobs such as loader
-    private progressBehaviour: IProgressBehaviour = new ProgressNullBehaviour();
+    private _progressBehaviour: IProgressBehaviour = new ProgressNullBehaviour();
+    public get progressBehaviour(): IProgressBehaviour {
+        return this._progressBehaviour;
+    }
+    private set progressBehaviour(newProgressBehaviour) {
+        this._progressBehaviour = newProgressBehaviour;
+    }
 
     constructor(
         @inject(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK) private readonly fbInstant: IFBInstantSDK,

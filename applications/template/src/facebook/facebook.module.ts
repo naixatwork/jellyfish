@@ -71,8 +71,8 @@ export class FBInstantSDKMock implements IFBInstantSDK {
         return [];
     }
 
-    initializeAsync(): Promise<any> {
-        return Promise.resolve(undefined);
+    initializeAsync(): Promise<void> {
+        return Promise.resolve();
     }
 
     setLoadingProgress(percentage: number): void {
