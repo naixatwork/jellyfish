@@ -26,7 +26,6 @@ export abstract class AdBaseService {
 
     protected abstract fbInstantSDKPreloadAdFunction(adId: string): Promise<IFacebookAd>;
 
-    // todo change this function name to load
     public async loadAd(adId: string): Promise<void> {
         await this.loadBehaviour.preloadAd(this.fbInstantSDKPreloadAdFunction(adId), this._adType)
             .subscribe({

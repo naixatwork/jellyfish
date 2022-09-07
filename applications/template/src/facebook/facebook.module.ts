@@ -16,7 +16,6 @@ import {ProgressOnUnityLoaderBehaviour} from "./progress/progressOnUnityLoaderBe
 export class FacebookModule extends ContainerModule {
     public constructor() {
         super(bind => {
-            // todo: provide service identifier for everything
             bind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).to(FBInstantSDKMock).inSingletonScope();
             bind(FACEBOOK_SERVICE_IDENTIFIERS.facebookService).to(FacebookService).inSingletonScope();
             bind(FACEBOOK_SERVICE_IDENTIFIERS.preloadBehaviour).to(PreloadBehaviour);
