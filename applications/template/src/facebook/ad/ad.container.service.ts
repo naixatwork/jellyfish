@@ -18,8 +18,8 @@ export class AdContainerService {
     };
 
     constructor(
-        private readonly adInterstitialService: AdInterstitialService,
-        private readonly adBannerService: AdBannerService,
+        @inject(FACEBOOK_SERVICE_IDENTIFIERS.adInterstitialService) private readonly adInterstitialService: AdInterstitialService,
+        @inject(FACEBOOK_SERVICE_IDENTIFIERS.adBannerService) private readonly adBannerService: AdBannerService,
         @inject(FACEBOOK_SERVICE_IDENTIFIERS.adRewardedService) private readonly adRewardedService: AdRewardedService,
         @inject(FACEBOOK_SERVICE_IDENTIFIERS.adRewardedInterstitialService) private readonly adRewardedInterstitialService: AdRewardedInterstitialService
     ) {

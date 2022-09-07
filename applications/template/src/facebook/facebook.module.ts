@@ -28,9 +28,9 @@ export class FacebookModule extends ContainerModule {
             bind(FACEBOOK_SERVICE_IDENTIFIERS.adRewardedInterstitialService).to(AdRewardedInterstitialService);
             bind(FACEBOOK_SERVICE_IDENTIFIERS.progressNullBehaviour).to(ProgressNullBehaviour);
             bind(FACEBOOK_SERVICE_IDENTIFIERS.progressOnUnityLoaderBehaviour).to(ProgressOnUnityLoaderBehaviour);
-            bind(AdContainerService).toSelf();
-            bind(AdInterstitialService).toSelf();
-            bind(AdBannerService).toSelf();
+            bind(FACEBOOK_SERVICE_IDENTIFIERS.adContainerService).to(AdContainerService);
+            bind(FACEBOOK_SERVICE_IDENTIFIERS.adInterstitialService).to(AdInterstitialService);
+            bind(FACEBOOK_SERVICE_IDENTIFIERS.adBannerService).to(AdBannerService);
         });
     }
 }

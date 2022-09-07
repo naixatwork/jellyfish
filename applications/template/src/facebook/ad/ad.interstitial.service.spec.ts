@@ -3,6 +3,7 @@ import {createTestingModule} from "../../shared/create-testing-module.function";
 import {FacebookModule} from "../facebook.module";
 import {UnityModule} from "../../unity/unity.module";
 import {Container} from "inversify";
+import {FACEBOOK_SERVICE_IDENTIFIERS} from "../facebook.type";
 
 describe("AdInterstitialService", () => {
     let sut: AdInterstitialService;
@@ -10,7 +11,7 @@ describe("AdInterstitialService", () => {
 
     beforeEach(() => {
         moduleRef = createTestingModule(FacebookModule, UnityModule);
-        sut = moduleRef.get(AdInterstitialService);
+        sut = moduleRef.get(FACEBOOK_SERVICE_IDENTIFIERS.adInterstitialService);
     });
 
     test("it should be defined", () => {

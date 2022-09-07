@@ -18,7 +18,7 @@ export class FacebookService {
     constructor(
         @inject(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK) private readonly fbInstant: IFBInstantSDK,
         @inject(FACEBOOK_SERVICE_IDENTIFIERS.progressOnUnityLoaderBehaviour) private readonly progressOnUnityLoaderBehaviour: ProgressOnUnityLoaderBehaviour,
-        private readonly adContainerService: AdContainerService,
+        @inject(FACEBOOK_SERVICE_IDENTIFIERS.adContainerService) private readonly adContainerService: AdContainerService,
     ) {
         const changeProgressBehaviour = () => {
             this.progressBehaviour = this.progressOnUnityLoaderBehaviour;

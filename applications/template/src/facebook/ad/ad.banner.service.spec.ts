@@ -61,7 +61,7 @@ describe("AdBannerService", () => {
         moduleRef = createTestingModule(FacebookModule, UnityModule);
         const unityService = moduleRef.get<UnityService>(UNITY_SERVICE_IDENTIFIERS.unityService);
         unityService.changeSendMessageBehaviour(new SendMessageUnityBehaviour(new UnityInstanceMock()));
-        sut = moduleRef.get(AdBannerService);
+        sut = moduleRef.get(FACEBOOK_SERVICE_IDENTIFIERS.adBannerService);
     });
 
     afterEach(() => {
@@ -76,7 +76,7 @@ describe("AdBannerService", () => {
 
     test("it should subscribe to loadBannerAdAsync() from SDK after calling preloadAd()", async () => {
         moduleRef.rebind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).to(FBInstantSDKTestMock);
-        sut = moduleRef.get(AdBannerService);
+        sut = moduleRef.get(FACEBOOK_SERVICE_IDENTIFIERS.adBannerService);
 
         await sut.loadAd("999");
 
@@ -85,7 +85,7 @@ describe("AdBannerService", () => {
 
     test("it should send OnAdLoaded message to unity if preloadAd() resolves successfully", async () => {
         moduleRef.rebind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).to(FBInstantSDKTestMock);
-        sut = moduleRef.get(AdBannerService);
+        sut = moduleRef.get(FACEBOOK_SERVICE_IDENTIFIERS.adBannerService);
 
         await sut.loadAd("999");
 
@@ -98,7 +98,7 @@ describe("AdBannerService", () => {
 
     test("it should send OnAdLoadFailed message to unity if preloadAd() fails to resolve", async () => {
         moduleRef.rebind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).to(FBInstantSDKTestFailMock);
-        sut = moduleRef.get(AdBannerService);
+        sut = moduleRef.get(FACEBOOK_SERVICE_IDENTIFIERS.adBannerService);
 
         await sut.loadAd("999");
 
@@ -111,7 +111,7 @@ describe("AdBannerService", () => {
 
     test("it should subscribe to hideBannerAdAsync() from SDK after calling hideAd()", async () => {
         moduleRef.rebind<IFBInstantSDK>(FACEBOOK_SERVICE_IDENTIFIERS.FacebookSDK).to(FBInstantSDKTestMock);
-        sut = moduleRef.get(AdBannerService);
+        sut = moduleRef.get(FACEBOOK_SERVICE_IDENTIFIERS.adBannerService);
 
         await sut.loadAd("999");
         await sut.hideAd();
