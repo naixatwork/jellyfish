@@ -11,6 +11,7 @@ export class FacebookService {
     public get progressBehaviour(): IProgressBehaviour {
         return this._progressBehaviour;
     }
+
     private set progressBehaviour(newProgressBehaviour) {
         this._progressBehaviour = newProgressBehaviour;
     }
@@ -20,11 +21,14 @@ export class FacebookService {
         @inject(FACEBOOK_SERVICE_IDENTIFIERS.progressOnUnityLoaderBehaviour) private readonly progressOnUnityLoaderBehaviour: ProgressOnUnityLoaderBehaviour,
         @inject(FACEBOOK_SERVICE_IDENTIFIERS.adContainerService) private readonly adContainerService: AdContainerService,
     ) {
-        const changeProgressBehaviour = () => {
-            this.progressBehaviour = this.progressOnUnityLoaderBehaviour;
-        };
+        fbInstant.initializeAsync()
+            .then(() => {
+                this.changeProgressBehaviourToUnityLoader();
+            });
+    }
 
-        fbInstant.initializeAsync().then(changeProgressBehaviour);
+    private changeProgressBehaviourToUnityLoader(): void {
+        this.progressBehaviour = this.progressOnUnityLoaderBehaviour;
     }
 
     public setLoadProgress(progress: number): void {
