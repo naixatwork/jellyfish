@@ -3,7 +3,7 @@
     "outDir": "./dist",
     "noImplicitAny": true,
     "strict": true,
-    "target": "es5",
+    "target": "ES2015",
     "lib": ["es6", "dom"],
     "types": ["reflect-metadata", "jest", "node"],
     "moduleResolution": "node",
